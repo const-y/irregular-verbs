@@ -1,24 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Alert, Form } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
+import QuestionForm from './components/QuestionForm';
 
 function App() {
   return (
     <div className="App">
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand>Учим неправильные глаголы</Navbar.Brand>
+      </Navbar>
+      <br />
       <Container>
-        <h1>Учим неправильные глаголы</h1>
-        <p>
-          Введите перевод в трех формах через пробел
-        </p>
-        <p>
-          <Alert variant="primary">
-            Ездить (верхом)
-          </Alert>
-          <Form.Control placeholder="Введите перевод в трех формах через пробел" />
-        </p>
-        <Button>
-          Далее
-        </Button>
+        <QuestionForm/>
       </Container>
     </div>
   );
