@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Navbar } from 'react-bootstrap';
-import QuestionForm from './components/QuestionForm';
+import QuestionFormContainer from './components/QuestionFormContainer';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       </Navbar>
       <br />
       <Container>
-        <QuestionForm/>
+        <QuestionFormContainer/>
       </Container>
     </div>
   );
