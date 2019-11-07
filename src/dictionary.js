@@ -1,0 +1,60 @@
+export default [
+  ['meet', 'met', 'met', 'встречать'],
+  ['feed', 'fed', 'fed', 'кормить'],
+  ['lead', 'led', 'led', 'вести'],
+  ['read', 'read', 'read', 'читать'],
+  ['mean', 'meant', 'meant', 'означать, иметь в виду'],
+  ['dream', 'dreamt', 'dreamt', 'видеть сон, мечтать'],
+  ['feel', 'felt', 'felt', 'чувствовать'],
+  ['sleep', 'slept', 'slept', 'спать'],
+  ['keep', 'kept', 'kept', 'держать, хранить'],
+  ['sweep', 'swept', 'swept', 'подметать'],
+  ['leave', 'left', 'left', 'оставлять, уезжать, покидать'],
+
+  ['spend', 'spent', 'spent', 'проводить (время), тратить (деньги)'],
+  ['send', 'sent', 'sent', 'посылать'],
+  ['lend', 'lent', 'lent', 'давать в долг'],
+  ['build', 'built', 'built', 'строить'],
+  ['burn', 'burnt', 'burnt', 'гореть'],
+  ['learn', 'learnt', 'learnt', 'учить (что-либо), узнавать'],
+  ['hear', 'heard', 'heard', 'слышать'],
+
+  ['buy', 'bought', 'bought', 'покупать'],
+  ['bring', 'brought', 'brought', 'приносить'],
+  ['fight', 'fought', 'fought', 'драться, сражаться'],
+  ['catch', 'caught', 'caught', 'ловить, поймать'],
+  ['teach', 'taught', 'taught', 'учить (кого-либо), узнавать'],
+  ['think', 'thought', 'thought', 'думать'],
+
+  ['make', 'made', 'made', 'делать (руками), изготавливать'],
+  ['run', 'ran', 'run', 'бегать'],
+  ['fall', 'fell', 'fallen', 'падать'],
+  ['shine', 'shone', 'shone', 'светить'],
+
+  ['take', 'took', 'taken', 'брать, взять'],
+  ['shake', 'shook', 'shaken', 'трясти'],
+
+  ['grow', 'grew', 'grown', 'расти'],
+  ['throw', 'threw', 'thrown', 'бросать'],
+  ['fly', 'flew', 'flown', 'летать'],
+  ['blow', 'blew', 'blown', 'дуть'],
+  ['know', 'knew [nju:]', 'known', 'знать'],
+  ['show', 'showed', 'shown', 'показывать'],
+  ['draw', 'drew', 'drawn', 'рисовать'],
+
+  ['wear', 'wore', 'worn', 'носить (одежду)'],
+  ['tear', 'tore', 'torn', 'рвать'],
+
+  ['hide', 'hid', 'hidden', 'прятать(-ся)'],
+  ['bite', 'bit', 'bitten', 'кусать'],
+
+  ['write', 'wrote', 'written', 'писать'],
+  ['ride', 'rode', 'ridden', 'кататься'],
+  ['drive', 'drove', 'driven', 'водить (машину)'],
+
+  ['begin', 'began', 'begun', 'начинать'],
+  ['swim', 'swam', 'swum', 'плавать'],
+  ['drink', 'drank', 'drunk', 'пить'],
+  ['sing', 'sang', 'sung', 'петь'],
+  ['ring', 'rang', 'rung', 'звенеть'],
+]
