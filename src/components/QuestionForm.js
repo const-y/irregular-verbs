@@ -1,9 +1,9 @@
 import React from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 
-const QuestionForm = () => {
+const QuestionForm = ({ onSubmit }) => {
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <p>
         <Alert variant="primary">
           Ездить (верхом)
