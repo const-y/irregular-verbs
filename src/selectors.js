@@ -1,0 +1,1 @@
+export const getFirstDictionaryItem = state => state.dictionary[0] || [];
