@@ -1,11 +1,12 @@
 import { createReducer } from 'redux-act';
-import { shuffleDictionary } from '../actions';
-import { shuffleArray } from '../utils';
-import dict from '../dictionary';
+import { dropDictionary, shuffleDictionary } from '../actions';
+import initialDictionary from '../initialDictionary';
+import _ from 'lodash';
 
 export const dictionary = createReducer(
   {
-    [shuffleDictionary]: state => shuffleArray(state),
+    [shuffleDictionary]: state => _.shuffle(state),
+    [dropDictionary]: state => _.drop(state),
   },
-  shuffleArray(dict),
+  _.shuffle(initialDictionary),
 );

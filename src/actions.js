@@ -6,4 +6,4 @@ export const shuffleDictionary = createAction('shuffle dictionary');
  * Remove first (current) item of the dictionary
  * @type {EmptyActionCreator}
  */
-export const cutHead = createAction('cut head');
+export const dropDictionary = createAction('drop dictionary');
