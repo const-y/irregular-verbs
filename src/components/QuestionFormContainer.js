@@ -5,15 +5,24 @@ import { connect } from 'react-redux';
 import { getFirstDictionaryItem } from '../selectors';
 import { compose } from 'redux';
 import { shuffleDictionary } from '../actions';
+import { propTypes, reduxForm, Field} from 'redux-form';
+import InputField from './InputField';
+import { answer } from '../constants/fields';
+
+const form = 'test';
 
 const QuestionFormContainer = ({ onSubmit, topWord, shuffleDictionary }) => {
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} action="#">
       <Alert variant="primary">
         {topWord[3]}
       </Alert>
       <p>
-        <Form.Control placeholder="Введите перевод в трех формах через пробел" />
+        <Field
+          name={answer}
+          component={InputField}
+          placeholder="Введите перевод в трех формах через пробел"
+        />
       </p>
       <Button onClick={onSubmit}>
         Далее
@@ -39,14 +48,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 QuestionFormContainer.propTypes = {
+  ...propTypes,
   topWord: PropTypes.array.isRequired,
   shuffleDictionary: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-  )
+  ),
+  reduxForm({ form }),
 )(QuestionFormContainer);
