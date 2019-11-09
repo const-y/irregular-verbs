@@ -8,3 +8,15 @@ export async function wait(ms) {
     setTimeout(resolve, ms);
   });
 }
+
+/**
+ * Check user's answer
+ * @param {Array} sampler
+ * @param {string} answer
+ * @returns {boolean}
+ */
+export function checkAnswer({ sampler, answer }) {
+  const answerSampler = sampler[0] + sampler[1] + sampler[2];
+
+  return answer === answerSampler;
+}

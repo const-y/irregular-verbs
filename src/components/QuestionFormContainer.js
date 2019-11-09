@@ -4,10 +4,12 @@ import { Alert, Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getFirstDictionaryItem } from '../selectors';
 import { compose } from 'redux';
-import { shuffleDictionary } from '../actions';
+import { shuffleDictionary, success, error } from '../actions';
 import { propTypes, reduxForm, Field} from 'redux-form';
 import InputField from './InputField';
-import { answer } from '../constants/fields';
+import { answer, sampler } from '../constants/fields';
+import { checkAnswer } from '../helper';
+import _ from 'lodash';
 
 const form = 'test';
 
@@ -36,14 +38,22 @@ const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit }) => 
 
 const mapStateToProps = state => ({
   topWord: getFirstDictionaryItem(state),
+  initialValues: {
+    [sampler]: getFirstDictionaryItem(state),
+    [answer]: '',
+  },
 });
 
 const mapDispatchToProps = dispatch => ({
   shuffleDictionary: () => {
     dispatch(shuffleDictionary())
   },
-  onSubmit: () => {
-    alert();
+  onSubmit: data => {
+    if (checkAnswer(data)) {
+      dispatch(success());
+    } else {
+      dispatch(error(_.toString(data.sampler)));
+    }
   }
 });
 
@@ -58,5 +68,7 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  reduxForm({ form }),
+  reduxForm({
+    form,
+  }),
 )(QuestionFormContainer);
