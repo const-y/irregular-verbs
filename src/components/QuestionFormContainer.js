@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { getFirstDictionaryItem } from '../selectors';
+import { getErrorMessage, getFirstDictionaryItem, isSuccess } from '../selectors';
 import { compose } from 'redux';
 import { shuffleDictionary, success, error } from '../actions';
 import { propTypes, reduxForm, Field} from 'redux-form';
@@ -10,23 +10,32 @@ import InputField from './InputField';
 import { answer, sampler } from '../constants/fields';
 import { checkAnswer } from '../helper';
 import _ from 'lodash';
+import AlertBox from './AlertBox';
 
 const form = 'test';
 
-const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit }) => {
+const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit, success, errorMessage }) => {
+  const disabled = success || !!errorMessage;
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <Alert variant="primary">
-        {topWord[3]}
-      </Alert>
+    <Form onSubmit={handleSubmit} disabled>
+      <AlertBox
+        sampler={topWord}
+        success={success}
+        error={errorMessage}
+      />
       <p>
         <Field
           name={answer}
           component={InputField}
           placeholder="Введите перевод в трех формах через пробел"
+          disabled={disabled}
         />
       </p>
-      <Button onClick={handleSubmit}>
+      <Button
+        onClick={handleSubmit}
+        disabled={disabled}
+      >
         Далее
       </Button>
       <Button variant="secondary" onClick={shuffleDictionary}>
@@ -42,6 +51,8 @@ const mapStateToProps = state => ({
     [sampler]: getFirstDictionaryItem(state),
     [answer]: '',
   },
+  success: isSuccess(state),
+  errorMessage: getErrorMessage(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -70,5 +81,6 @@ export default compose(
   ),
   reduxForm({
     form,
+    enableReinitialize: true,
   }),
 )(QuestionFormContainer);

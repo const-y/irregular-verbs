@@ -16,7 +16,7 @@ export async function wait(ms) {
  * @returns {boolean}
  */
 export function checkAnswer({ sampler, answer }) {
-  const answerSampler = sampler[0] + sampler[1] + sampler[2];
+  const answerSampler = sampler[0] + ' ' + sampler[1] + ' ' + sampler[2];
 
   return answer === answerSampler;
 }
