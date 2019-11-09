@@ -16,9 +16,10 @@ export const hideSuccess = createAction('hide success message');
 
 export const success = () => async dispatch => {
   dispatch(showSuccess());
-  await wait(3000);
+  await wait(1000);
   dispatch(hideSuccess());
   dispatch(dropDictionary());
+  // dispatch(reset(form));
 };
 
 export const error = errorMessage => async dispatch => {
@@ -26,4 +27,5 @@ export const error = errorMessage => async dispatch => {
   await wait(3000);
   dispatch(hideError());
   dispatch(shuffleDictionary());
+  // dispatch(reset(form));
 };

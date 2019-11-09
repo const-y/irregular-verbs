@@ -11,10 +11,9 @@ import { answer, sampler } from '../constants/fields';
 import { checkAnswer } from '../helper';
 import _ from 'lodash';
 import AlertBox from './AlertBox';
+import { form } from '../constants/form';
 
-const form = 'test';
-
-const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit, success, errorMessage }) => {
+function QuestionFormContainer({ topWord, shuffleDictionary, handleSubmit, success, errorMessage }) {
   const disabled = success || !!errorMessage;
 
   return (
@@ -43,7 +42,7 @@ const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit, succe
       </Button>
     </Form>
   );
-};
+}
 
 const mapStateToProps = state => ({
   topWord: getFirstDictionaryItem(state),
