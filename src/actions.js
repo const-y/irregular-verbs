@@ -19,7 +19,6 @@ export const success = () => async dispatch => {
   await wait(1000);
   dispatch(hideSuccess());
   dispatch(dropDictionary());
-  // dispatch(reset(form));
 };
 
 export const error = errorMessage => async dispatch => {
@@ -27,5 +26,4 @@ export const error = errorMessage => async dispatch => {
   await wait(3000);
   dispatch(hideError());
   dispatch(shuffleDictionary());
-  // dispatch(reset(form));
 };

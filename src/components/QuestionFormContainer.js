@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getErrorMessage, getFirstDictionaryItem, isSuccess } from '../selectors';
 import { compose } from 'redux';
-import { shuffleDictionary, success, error } from '../actions';
+import { success, error } from '../actions';
 import { propTypes, reduxForm, Field} from 'redux-form';
 import InputField from './InputField';
 import { answer, sampler } from '../constants/fields';
@@ -13,8 +13,12 @@ import _ from 'lodash';
 import AlertBox from './AlertBox';
 import { form } from '../constants/form';
 
-function QuestionFormContainer({ topWord, shuffleDictionary, handleSubmit, success, errorMessage }) {
+function QuestionFormContainer({ topWord, handleSubmit, success, errorMessage }) {
   const disabled = success || !!errorMessage;
+
+  if (_.isEmpty(topWord)) {
+    return <div>Нет слов для повторения</div>
+  }
 
   return (
     <Form onSubmit={handleSubmit} disabled>
@@ -37,9 +41,6 @@ function QuestionFormContainer({ topWord, shuffleDictionary, handleSubmit, succe
       >
         Далее
       </Button>
-      <Button variant="secondary" onClick={shuffleDictionary}>
-        Shuffle
-      </Button>
     </Form>
   );
 }
@@ -55,9 +56,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  shuffleDictionary: () => {
-    dispatch(shuffleDictionary())
-  },
   onSubmit: data => {
     if (checkAnswer(data)) {
       dispatch(success());
@@ -70,7 +68,6 @@ const mapDispatchToProps = dispatch => ({
 QuestionFormContainer.propTypes = {
   ...propTypes,
   topWord: PropTypes.array.isRequired,
-  shuffleDictionary: PropTypes.func.isRequired,
 };
 
 export default compose(
