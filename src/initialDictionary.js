@@ -38,7 +38,7 @@ export default [
   ['throw', 'threw', 'thrown', 'бросать'],
   ['fly', 'flew', 'flown', 'летать'],
   ['blow', 'blew', 'blown', 'дуть'],
-  ['know', 'knew [nju:]', 'known', 'знать'],
+  ['know', 'knew', 'known', 'знать'],
   ['show', 'showed', 'shown', 'показывать'],
   ['draw', 'drew', 'drawn', 'рисовать'],
 
@@ -96,6 +96,6 @@ export default [
   ['shoot', 'shot', 'shot', 'стрелять'],
   ['bet', 'bet', 'bet', 'держать пари'],
   ['hit', 'hit', 'hit', 'ударять'],
-  ['const', 'const', 'const', 'стоить'],
+  ['cost', 'cost', 'cost', 'стоить'],
   ['lose', 'lost', 'lost', 'терять'],
 ]
