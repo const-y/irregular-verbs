@@ -11,9 +11,9 @@ import { answer } from '../constants/fields';
 
 const form = 'test';
 
-const QuestionFormContainer = ({ onSubmit, topWord, shuffleDictionary }) => {
+const QuestionFormContainer = ({ topWord, shuffleDictionary, handleSubmit }) => {
   return (
-    <Form onSubmit={onSubmit} action="#">
+    <Form onSubmit={handleSubmit}>
       <Alert variant="primary">
         {topWord[3]}
       </Alert>
@@ -24,7 +24,7 @@ const QuestionFormContainer = ({ onSubmit, topWord, shuffleDictionary }) => {
           placeholder="Введите перевод в трех формах через пробел"
         />
       </p>
-      <Button onClick={onSubmit}>
+      <Button onClick={handleSubmit}>
         Далее
       </Button>
       <Button variant="secondary" onClick={shuffleDictionary}>
