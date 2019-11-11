@@ -1,7 +1,7 @@
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 ## Live demo
 Click [here](http://numerous-lift.surge.sh) to open
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
