@@ -1,5 +1,5 @@
 ## Live demo
-http://new-soda.surge.sh/
+Click [here](http://new-soda.surge.sh/) to open
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
