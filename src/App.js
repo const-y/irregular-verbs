@@ -7,7 +7,9 @@ function App() {
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand>Учим неправильные глаголы</Navbar.Brand>
+        <Container>
+          <Navbar.Brand>Учим неправильные глаголы</Navbar.Brand>
+        </Container>
       </Navbar>
       <br />
       <Container>
