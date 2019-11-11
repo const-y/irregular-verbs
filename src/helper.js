@@ -18,5 +18,5 @@ export async function wait(ms) {
 export function checkAnswer({ sampler, answer }) {
   const answerSampler = sampler[0] + ' ' + sampler[1] + ' ' + sampler[2];
 
-  return answer === answerSampler;
+  return answer.toLowerCase() === answerSampler;
 }
