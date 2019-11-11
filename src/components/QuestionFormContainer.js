@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, ProgressBar } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { getErrorMessage, getFirstDictionaryItem, isSuccess } from '../selectors';
+import { getErrorMessage, getFirstDictionaryItem, getPercents, isSuccess } from '../selectors';
 import { compose } from 'redux';
 import { success, error } from '../actions';
 import { propTypes, reduxForm, Field} from 'redux-form';
@@ -13,7 +13,7 @@ import _ from 'lodash';
 import AlertBox from './AlertBox';
 import { form } from '../constants/form';
 
-function QuestionFormContainer({ topWord, handleSubmit, success, errorMessage }) {
+function QuestionFormContainer({ topWord, handleSubmit, success, errorMessage, percents }) {
   const disabled = success || !!errorMessage;
 
   if (_.isEmpty(topWord)) {
@@ -22,6 +22,8 @@ function QuestionFormContainer({ topWord, handleSubmit, success, errorMessage })
 
   return (
     <Form onSubmit={handleSubmit} disabled>
+      <ProgressBar striped variant="success" now={percents} />
+      <br />
       <AlertBox
         sampler={topWord}
         success={success}
@@ -51,6 +53,7 @@ const mapStateToProps = state => ({
     [sampler]: getFirstDictionaryItem(state),
     [answer]: '',
   },
+  percents: getPercents(state),
   success: isSuccess(state),
   errorMessage: getErrorMessage(state),
 });
