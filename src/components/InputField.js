@@ -8,7 +8,9 @@ function InputField({ input, placeholder, disabled }){
   const { value, onChange } = input;
 
   useEffect(() => {
-    inputEl.current.focus();
+    if (!disabled) {
+      inputEl.current.focus();
+    }
   }, [disabled]);
 
   return (
