@@ -7,7 +7,7 @@ App for learning English irregular verbs
 ![Irregular verbs](./public/screen.png)
 
 ## Live demo
-Click [here](http://numerous-lift.surge.sh) to open
+Click [here](https://irregular-verbs-const-y.netlify.app/) to open
 
 ## Installation
 ```shell
