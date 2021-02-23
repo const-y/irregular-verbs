@@ -8,7 +8,7 @@ App for learning English irregular verbs
 ![Irregular verbs](./public/screen.png)
 
 ## Live demo
-Click [here](https://irregular-verbs-const-y.netlify.app/) to open
+Click [here](https://const-y.github.io/irregular-verbs/) to open
 
 ## Installation
 ```shell
