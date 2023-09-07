@@ -1,4 +1,4 @@
-export default [
+const initialDictionary = [
   ['meet', 'met', 'met', 'встречать'],
   ['feed', 'fed', 'fed', 'кормить'],
   ['lead', 'led', 'led', 'вести'],
@@ -98,4 +98,6 @@ export default [
   ['hit', 'hit', 'hit', 'ударять'],
   ['cost', 'cost', 'cost', 'стоить'],
   ['lose', 'lost', 'lost', 'терять'],
-]
+];
+
+export default initialDictionary;
