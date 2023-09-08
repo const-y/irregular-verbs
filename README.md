@@ -10,7 +10,7 @@ App for learning English irregular verbs
 
 ## Live demo
 
-Click [here](https://irregular-verbs-const-y.netlify.app/) to open
+Click [here](https://const-y.github.io/irregular-verbs/) to open
 
 ## Installation
 
