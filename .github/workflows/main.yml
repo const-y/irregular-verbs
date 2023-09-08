@@ -34,4 +34,3 @@ jobs:
           node-version: 18.x
       - run: make ci
       - run: make build
-      - run: make deploy
