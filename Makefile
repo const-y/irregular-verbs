@@ -1,6 +1,8 @@
-install: yarn
+install: 
+	yarn
 
-ci: yarn install
+ci: 
+	yarn install
 
 lint:
 	npx eslint .
