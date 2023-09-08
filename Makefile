@@ -13,5 +13,8 @@ test:
 build:
 	yarn build
 
+deploy:
+	yarn deploy
+
 test-coverage:
 	yarn test --coverage .
