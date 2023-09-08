@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Button, Form, ProgressBar } from 'react-bootstrap';
 import { StoreContext } from '../context/storeContext';
 import AlertBox from './AlertBox';
