@@ -14,8 +14,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 18.x
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - run: make ci
+      - run: make test
+      - name: Test & publish code coverage
+      # Publish code coverage on Code Climate
+      # https://github.com/paambaati/codeclimate-action
+      uses: paambaati/codeclimate-action@v2.7.4
+      # Add Code Climate secret key
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: make test-coverage
   build:
     runs-on: ubuntu-latest
     steps:
@@ -23,5 +32,5 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 18.x
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - run: make ci
+      - run: make build
