@@ -8,13 +8,17 @@ App for learning English irregular verbs
 ![Irregular verbs](./public/screen.png)
 
 ## Live demo
+
 Click [here](https://irregular-verbs-const-y.netlify.app/) to open
 
 ## Installation
+
 ```shell
-npm install
+yarn
 ```
+
 ## Run
+
 ```shell
-npm run
+yarn start
 ```
