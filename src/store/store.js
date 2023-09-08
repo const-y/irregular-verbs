@@ -1,7 +1,7 @@
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import { checkAnswer, wait } from '../helper';
+import { wait } from '../helper';
 import initialDictionary from '../initialDictionary';
 
 export default class Store {
@@ -19,6 +19,13 @@ export default class Store {
 
   get percents() {
     return 100 - (this.dictionary.length / initialDictionary.length) * 100;
+  }
+
+  isAnswerCorrect(answer) {
+    const [infinitive, past, participle] = this.firstDictionaryItem;
+    const answerSampler = infinitive + ' ' + past + ' ' + participle;
+
+    return answer.toLowerCase() === answerSampler;
   }
 
   shuffleDictionary() {
@@ -45,25 +52,17 @@ export default class Store {
     this.isSuccess = false;
   }
 
-  async success() {
-    this.showSuccess();
-    await wait(1000);
-    this.hideSuccess();
-    this.dropDictionary();
-  }
-
-  async error(errorMessage) {
-    this.showError(errorMessage);
-    await wait(3000);
-    this.hideError();
-    this.shuffleDictionary();
-  }
-
-  processAnswer(answer) {
-    if (checkAnswer({ answer, sampler: this.firstDictionaryItem })) {
-      this.success();
+  async processAnswer(answer) {
+    if (this.isAnswerCorrect(answer)) {
+      this.showSuccess();
+      await wait(1000);
+      this.hideSuccess();
+      this.dropDictionary();
     } else {
-      this.error(this.firstDictionaryItem.join(', '));
+      this.showError(this.firstDictionaryItem.join(', '));
+      await wait(3000);
+      this.hideError();
+      this.shuffleDictionary();
     }
   }
 }

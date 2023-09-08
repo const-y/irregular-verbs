@@ -12,20 +12,16 @@ function QuestionForm() {
 
   const disabled = store.isSuccess || !!store.errorMessage;
 
-  useEffect(() => {
-    if (!disabled) {
-      inputRef.current.focus();
-    }
-  }, [disabled]);
-
   if (isEmpty(store.firstDictionaryItem)) {
     return <div>Нет слов для повторения</div>;
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    store.processAnswer(answer);
-    setAnswer('');
+    store.processAnswer(answer).then(() => {
+      setAnswer('');
+      inputRef.current.focus();
+    });
   };
 
   const handleAnswerChange = (event) => {
