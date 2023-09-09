@@ -1,19 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Container, Navbar } from 'react-bootstrap';
-import QuestionForm from './components/QuestionForm';
+import QuestionsPage from './components/QuestionsPage';
 
 function App() {
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" className="mb-3">
         <Container>
           <Navbar.Brand>Учим неправильные глаголы</Navbar.Brand>
         </Container>
       </Navbar>
-      <br />
       <Container>
-        <QuestionForm />
+        <QuestionsPage />
       </Container>
     </div>
   );
