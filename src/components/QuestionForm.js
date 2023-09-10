@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useRef, useState } from 'react';
-import { Button, Form, ProgressBar } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { StoreContext } from '../context/storeContext';
-import AlertBox from './AlertBox';
 
 function QuestionForm() {
   const store = useContext(StoreContext);
@@ -24,17 +23,6 @@ function QuestionForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <ProgressBar
-        striped
-        variant="success"
-        now={store.percents}
-        className="mb-3"
-      />
-      <AlertBox
-        sampler={store.firstDictionaryItem}
-        success={store.isSuccess}
-        error={store.errorMessage}
-      />
       <Form.Control
         ref={inputRef}
         value={answer}
