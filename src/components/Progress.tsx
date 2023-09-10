@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { StoreContext } from '../context/storeContext';
+import { useStoreContext } from '../context/storeContext';
 
 function Progress() {
-  const store = useContext(StoreContext);
+  const store = useStoreContext();
 
   return (
     <ProgressBar

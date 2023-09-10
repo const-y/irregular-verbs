@@ -21,7 +21,7 @@ export default class Store {
     return 100 - (this.dictionary.length / initialDictionary.length) * 100;
   }
 
-  isAnswerCorrect(answer) {
+  isAnswerCorrect(answer: string) {
     const [infinitive, past, participle] = this.firstDictionaryItem;
     const answerSampler = infinitive + ' ' + past + ' ' + participle;
 
@@ -36,7 +36,7 @@ export default class Store {
     this.dictionary = drop(this.dictionary);
   }
 
-  showError(errorMessage) {
+  showError(errorMessage: string) {
     this.errorMessage = errorMessage;
   }
 
@@ -52,7 +52,7 @@ export default class Store {
     this.isSuccess = false;
   }
 
-  async processAnswer(answer) {
+  async processAnswer(answer: string) {
     if (this.isAnswerCorrect(answer)) {
       this.showSuccess();
       await wait(1000);

@@ -1,4 +1,6 @@
-const initialDictionary = [
+import { DictionaryItem } from './models/DictionaryItem';
+
+const initialDictionary: DictionaryItem[] = [
   ['meet', 'met', 'met', 'встречать'],
   ['feed', 'fed', 'fed', 'кормить'],
   ['lead', 'led', 'led', 'вести'],
