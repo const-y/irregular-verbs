@@ -10,13 +10,25 @@ interface AlertBoxProps {
 
 function AlertBox({ sampler, success, error }: AlertBoxProps) {
   if (success) {
-    return <Alert variant="success">Верно!</Alert>;
+    return (
+      <Alert data-testid="alert-box" variant="success">
+        Верно!
+      </Alert>
+    );
   }
   if (error) {
-    return <Alert variant="danger">{error}</Alert>;
+    return (
+      <Alert data-testid="alert-box" variant="danger">
+        {error}
+      </Alert>
+    );
   }
 
-  return <Alert variant="primary">{sampler[3]}</Alert>;
+  return (
+    <Alert data-testid="alert-box" variant="primary">
+      {sampler[3]}
+    </Alert>
+  );
 }
 
 export default AlertBox;

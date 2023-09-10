@@ -3,6 +3,7 @@
 exports[`renders correctly 1`] = `
 <div
   className="fade alert alert-primary show"
+  data-testid="alert-box"
   role="alert"
 >
   встречать

@@ -8,6 +8,7 @@ function Progress() {
 
   return (
     <ProgressBar
+      data-testid="progress"
       striped
       variant="success"
       now={store.percents}

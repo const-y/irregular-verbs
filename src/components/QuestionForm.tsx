@@ -29,9 +29,10 @@ function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
     setAnswer(event.target.value);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="question-form">
       <Form.Control
         ref={inputRef}
+        data-testid="answer-input"
         value={answer}
         onChange={handleAnswerChange}
         placeholder="Введите перевод в трех формах через пробел"
