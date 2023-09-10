@@ -1,30 +1,38 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useRef, useState } from 'react';
+import React, {
+  ChangeEventHandler,
+  FormEventHandler,
+  useRef,
+  useState,
+} from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { StoreContext } from '../context/storeContext';
 
-function QuestionForm() {
-  const store = useContext(StoreContext);
+interface QuestionFormProps {
+  disabled: boolean;
+  onSubmit: (answer: string) => Promise<void>;
+}
+
+function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
   const [answer, setAnswer] = useState('');
-  const inputRef = useRef(null);
-  const disabled = store.isSuccess || !!store.errorMessage;
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    store.processAnswer(answer).then(() => {
+
+    onSubmit(answer).then(() => {
       setAnswer('');
-      inputRef.current.focus();
+      inputRef.current?.focus();
     });
   };
 
-  const handleAnswerChange = (event) => {
+  const handleAnswerChange: ChangeEventHandler<HTMLInputElement> = (event) =>
     setAnswer(event.target.value);
-  };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="question-form">
       <Form.Control
         ref={inputRef}
+        data-testid="answer-input"
         value={answer}
         onChange={handleAnswerChange}
         placeholder="Введите перевод в трех формах через пробел"
