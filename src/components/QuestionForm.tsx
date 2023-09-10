@@ -6,25 +6,27 @@ import React, {
   useState,
 } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useStoreContext } from '../context/storeContext';
 
-function QuestionForm() {
-  const store = useStoreContext();
+interface QuestionFormProps {
+  disabled: boolean;
+  onSubmit: (answer: string) => Promise<void>;
+}
+
+function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
   const [answer, setAnswer] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const disabled = store.isSuccess || !!store.errorMessage;
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    store.processAnswer(answer).then(() => {
+
+    onSubmit(answer).then(() => {
       setAnswer('');
       inputRef.current?.focus();
     });
   };
 
-  const handleAnswerChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleAnswerChange: ChangeEventHandler<HTMLInputElement> = (event) =>
     setAnswer(event.target.value);
-  };
 
   return (
     <Form onSubmit={handleSubmit}>

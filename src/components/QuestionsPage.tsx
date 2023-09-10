@@ -13,6 +13,10 @@ function QuestionsPage() {
     return <div>Нет слов для повторения</div>;
   }
 
+  const handleSubmit = (answer: string) => store.processAnswer(answer);
+
+  const isFormDisabled = store.isSuccess || !!store.errorMessage;
+
   return (
     <>
       <Progress />
@@ -21,7 +25,7 @@ function QuestionsPage() {
         success={store.isSuccess}
         error={store.errorMessage}
       />
-      <QuestionForm />
+      <QuestionForm disabled={isFormDisabled} onSubmit={handleSubmit} />
     </>
   );
 }
