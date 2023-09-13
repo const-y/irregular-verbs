@@ -1,14 +1,15 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
 import App from './App';
 import { StoreContextProvider } from './context/storeContext';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  const root = createRoot(div);
-  root.render(
+  const { getByText } = render(
     <StoreContextProvider>
       <App />
     </StoreContextProvider>
   );
+
+  expect(getByText('Учим неправильные глаголы')).toBeInTheDocument();
 });
