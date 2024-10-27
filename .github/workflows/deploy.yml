@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     branches:
-      - fix-deployment
+      - main
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
