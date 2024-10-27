@@ -26,12 +26,17 @@ jobs:
     # Specify runner +  build & upload the static files as an artifact
     runs-on: ubuntu-latest
     steps:
-      - name: Build static files
+      - name: Prepare to build
         id: build
         uses: actions/setup-node@v1
         with:
           node-version: 20.x
-        run: make ci | make build
+
+      - name: Build
+        id: build
+        run: |
+          make ci
+          make build
 
       - name: Upload static files as artifact
         id: deployment
