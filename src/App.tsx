@@ -1,9 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Container, Navbar } from 'react-bootstrap';
-import QuestionsPage from './components/QuestionsPage';
+import { Container, Navbar, Tab, Tabs } from 'react-bootstrap';
+import QuestionsPage from './pages/QuestionsPage';
+import DictionaryPage from './pages/DictionaryPage';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark" className="mb-3">
@@ -12,10 +13,21 @@ function App() {
         </Container>
       </Navbar>
       <Container>
-        <QuestionsPage />
+        <Tabs
+          defaultActiveKey="test"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          <Tab eventKey="test" title="Тест">
+            <QuestionsPage />
+          </Tab>
+          <Tab eventKey="dictionary" title="Словарь">
+            <DictionaryPage />
+          </Tab>
+        </Tabs>
       </Container>
     </div>
   );
-}
+};
 
 export default App;
