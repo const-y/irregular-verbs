@@ -26,6 +26,7 @@ jobs:
     # Specify runner +  build & upload the static files as an artifact
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Prepare to build
         uses: actions/setup-node@v1
         with:
@@ -34,8 +35,8 @@ jobs:
       - name: Build
         id: build
         run: |
-          yarn ci
-          yarn build
+          make ci
+          make build
 
       - name: Upload static files as artifact
         id: deployment
