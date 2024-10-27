@@ -1,0 +1,1 @@
+<a href="https://ru.freepik.com/free-vector/scissors-3d-realistic-illustration-metal-still-open-cutting_3090673.htm#fromView=search&page=1&position=2&uuid=d8e3fc3c-18ee-455c-8b40-a2c0596da44d">Изображение от vectorpouch на Freepik</a>
