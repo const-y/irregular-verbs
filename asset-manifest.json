@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/irregular-verbs/static/css/main.30dd5119.css",
-    "main.js": "/irregular-verbs/static/js/main.1ae9ca0e.js",
+    "main.css": "/irregular-verbs/static/css/main.36ffff30.css",
+    "main.js": "/irregular-verbs/static/js/main.cdfb4f3b.js",
     "index.html": "/irregular-verbs/index.html",
-    "main.30dd5119.css.map": "/irregular-verbs/static/css/main.30dd5119.css.map",
-    "main.1ae9ca0e.js.map": "/irregular-verbs/static/js/main.1ae9ca0e.js.map"
+    "main.36ffff30.css.map": "/irregular-verbs/static/css/main.36ffff30.css.map",
+    "main.cdfb4f3b.js.map": "/irregular-verbs/static/js/main.cdfb4f3b.js.map"
   },
   "entrypoints": [
-    "static/css/main.30dd5119.css",
-    "static/js/main.1ae9ca0e.js"
+    "static/css/main.36ffff30.css",
+    "static/js/main.cdfb4f3b.js"
   ]
 }
