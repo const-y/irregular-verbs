@@ -1,7 +1,8 @@
 name: Deployment
 
 on:
-  # Runs on pushes targeting the default branch
+  push:
+    branches: [fix-deployment]
   push:
     branches: ['main']
 
