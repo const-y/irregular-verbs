@@ -28,9 +28,10 @@ jobs:
     steps:
       - name: Build static files
         id: build
-        run: |
-          make ci
-          make build
+        - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 20.x
 
       - name: Upload static files as artifact
         id: deployment
