@@ -2,9 +2,9 @@ import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useStoreContext } from '../context/storeContext';
-import AlertBox from './AlertBox';
-import Progress from './Progress';
-import QuestionForm from './QuestionForm';
+import Progress from '../components/Progress';
+import AlertBox from '../components/AlertBox';
+import QuestionForm from '../components/QuestionForm';
 
 function QuestionsPage() {
   const store = useStoreContext();
