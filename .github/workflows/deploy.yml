@@ -31,8 +31,8 @@ jobs:
         id: build
         uses: actions/checkout@v2
         uses: actions/setup-node@v1
-          with:
-            node-version: 20.x
+        with:
+          node-version: 20.x
 
       - name: Upload static files as artifact
         id: deployment
