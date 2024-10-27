@@ -34,7 +34,7 @@ jobs:
       - name: Build
         id: build
         run: |
-          make ci
+          make install
           make build
 
       - name: Upload static files as artifact
