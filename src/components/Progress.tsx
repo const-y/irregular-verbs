@@ -3,7 +3,7 @@ import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import { useStoreContext } from '../context/storeContext';
 
-function Progress() {
+const Progress: React.FC = () => {
   const store = useStoreContext();
 
   return (
@@ -12,9 +12,8 @@ function Progress() {
       striped
       variant="success"
       now={store.percents}
-      className="mb-3"
     />
   );
-}
+};
 
 export default observer(Progress);

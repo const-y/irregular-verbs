@@ -8,6 +8,7 @@ export default class Store {
   dictionary = initialDictionary;
   isSuccess = false;
   errorMessage = '';
+  isTestingMode = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +27,10 @@ export default class Store {
     const answerSampler = infinitive + ' ' + past + ' ' + participle;
 
     return answer.toLowerCase() === answerSampler;
+  }
+
+  setIsTestingMode(isTestingMode: boolean) {
+    this.isTestingMode = isTestingMode;
   }
 
   shuffleDictionary() {

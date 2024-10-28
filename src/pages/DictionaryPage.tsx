@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { useStoreContext } from '../context/storeContext';
+import { observer } from 'mobx-react-lite';
 
 const DictionaryPage: React.FC = () => {
   const store = useStoreContext();
@@ -33,4 +34,4 @@ const DictionaryPage: React.FC = () => {
   );
 };
 
-export default DictionaryPage;
+export default observer(DictionaryPage);
