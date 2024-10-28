@@ -12,7 +12,10 @@ interface QuestionFormProps {
   onSubmit: (answer: string) => Promise<void>;
 }
 
-function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
+const QuestionForm: React.FC<QuestionFormProps> = ({
+  disabled,
+  onSubmit,
+}: QuestionFormProps) => {
   const [answer, setAnswer] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,6 +23,10 @@ function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
     event.preventDefault();
 
     onSubmit(answer).then(() => {
+      if (!answer) {
+        return;
+      }
+
       setAnswer('');
       inputRef.current?.focus();
     });
@@ -39,11 +46,13 @@ function QuestionForm({ disabled, onSubmit }: QuestionFormProps) {
         disabled={disabled}
         className="mb-3"
       />
-      <Button type="submit" disabled={disabled}>
-        Далее
-      </Button>
+      <div className="text-center m-3">
+        <Button type="submit" disabled={disabled || !answer} size="lg">
+          Далее
+        </Button>
+      </div>
     </Form>
   );
-}
+};
 
 export default observer(QuestionForm);
