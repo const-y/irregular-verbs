@@ -31,11 +31,14 @@ describe('QuestionsPage', () => {
   it('отображает Progress и AlertBox', () => {
     const mockStore = createMockStore();
 
-    const { getByTestId } = render(
+    const { getByTestId, getByText } = render(
       <StoreContext.Provider value={mockStore}>
         <QuestionsPage />
       </StoreContext.Provider>
     );
+
+    const startButton = getByText('Начать тест');
+    fireEvent.click(startButton);
 
     const progress = getByTestId('progress');
     const alertBox = getByTestId('alert-box');
@@ -53,6 +56,9 @@ describe('QuestionsPage', () => {
         <QuestionsPage />
       </StoreContext.Provider>
     );
+
+    const startButton = getByText('Начать тест');
+    fireEvent.click(startButton);
 
     const answerInput = getByTestId('answer-input');
     const submitButton = getByText('Далее');
