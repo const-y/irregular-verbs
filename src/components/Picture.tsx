@@ -16,7 +16,7 @@ const Picture: React.FC = () => {
         src={`${process.env.PUBLIC_URL}/images/${store.firstDictionaryItem[0]}.webp`}
         onError={addImageFallback}
         rounded
-        height={400}
+        height={250}
       />
     </picture>
   );
