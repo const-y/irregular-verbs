@@ -1,34 +1,20 @@
-name: Build
+name: Test and build
 
 on:
   pull_request:
     branches: [main]
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
-      - run: make ci
-      - run: make test
-      - name: Test & publish code coverage
-        # Publish code coverage on Code Climate
-        # https://github.com/paambaati/codeclimate-action
-        uses: paambaati/codeclimate-action@v2.7.4
-        # Add Code Climate secret key
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 18.x
-      - run: make ci
-      - run: make build
+          node-version: 20.x
+      - name: Install dependencies
+        run: make ci
+      - name: Run tests
+        run: make test
+      - name: Build
+        run: make build
