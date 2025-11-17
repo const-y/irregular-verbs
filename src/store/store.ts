@@ -12,6 +12,8 @@ export default class Store {
 
   constructor() {
     makeAutoObservable(this);
+
+    this.shuffleDictionary();
   }
 
   get firstDictionaryItem() {
