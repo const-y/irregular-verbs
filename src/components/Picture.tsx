@@ -7,7 +7,7 @@ const Picture: React.FC = () => {
   const store = useStoreContext();
 
   const addImageFallback = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = `${process.env.PUBLIC_URL}/images/logo512.png`;
+    event.currentTarget.src = `${process.env.PUBLIC_URL}/images/uk-flag.svg`;
   };
 
   return (
