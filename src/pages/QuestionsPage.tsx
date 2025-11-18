@@ -26,7 +26,7 @@ const QuestionsPage: React.FC = () => {
     );
   }
 
-  const handleSubmit = (answer: string) => store.processAnswer(answer);
+  const handleSubmit = (answer: string) => store.checkAnswer(answer);
 
   const isFormDisabled = store.isSuccess || !!store.errorMessage;
 
@@ -48,7 +48,11 @@ const QuestionsPage: React.FC = () => {
         success={store.isSuccess}
         error={store.errorMessage}
       />
-      <QuestionForm disabled={isFormDisabled} onSubmit={handleSubmit} />
+      <QuestionForm
+        disabled={isFormDisabled}
+        onSubmit={handleSubmit}
+        onNext={() => store.nextQuestion()}
+      />
     </>
   );
 };

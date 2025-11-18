@@ -47,9 +47,9 @@ describe('QuestionsPage', () => {
     expect(alertBox).toBeInTheDocument();
   });
 
-  it('отправляет ответ в QuestionForm и вызывает store.processAnswer', () => {
+  it('отправляет ответ в QuestionForm и вызывает store.checkAnswer', () => {
     const mockStore = createMockStore();
-    const spyOnProcessAnswer = jest.spyOn(mockStore, 'processAnswer');
+    const spyOnProcessAnswer = jest.spyOn(mockStore, 'checkAnswer');
 
     const { getByTestId, getByText } = render(
       <StoreContext.Provider value={mockStore}>
@@ -61,7 +61,7 @@ describe('QuestionsPage', () => {
     fireEvent.click(startButton);
 
     const answerInput = getByTestId('answer-input');
-    const submitButton = getByText('Далее');
+    const submitButton = getByText('Проверить');
 
     fireEvent.change(answerInput, { target: { value: 'тестовый ответ' } });
     fireEvent.click(submitButton);
