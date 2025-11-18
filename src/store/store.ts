@@ -1,7 +1,6 @@
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import { wait } from '../helper';
 import initialDictionary from '../initialDictionary';
 
 export default class Store {
@@ -22,6 +21,10 @@ export default class Store {
 
   get percents() {
     return 100 - (this.dictionary.length / initialDictionary.length) * 100;
+  }
+
+  get isAnswered(): boolean {
+    return this.isSuccess || !!this.errorMessage;
   }
 
   isAnswerCorrect(answer: string) {
@@ -59,15 +62,19 @@ export default class Store {
     this.isSuccess = false;
   }
 
-  async processAnswer(answer: string) {
+  checkAnswer(answer: string) {
     if (this.isAnswerCorrect(answer)) {
       this.showSuccess();
-      await wait(1000);
+    } else {
+      this.showError(this.firstDictionaryItem.join(', '));
+    }
+  }
+
+  nextQuestion() {
+    if (this.isSuccess) {
       this.hideSuccess();
       this.dropDictionary();
     } else {
-      this.showError(this.firstDictionaryItem.join(', '));
-      await wait(3000);
       this.hideError();
       this.shuffleDictionary();
     }
