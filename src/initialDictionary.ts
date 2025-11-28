@@ -12,7 +12,6 @@ const initialDictionary: DictionaryItem[] = [
   ['keep', 'kept', 'kept', 'держать, хранить'],
   ['sweep', 'swept', 'swept', 'подметать'],
   ['leave', 'left', 'left', 'оставлять, уезжать, покидать'],
-
   ['spend', 'spent', 'spent', 'проводить (время), тратить (деньги)'],
   ['send', 'sent', 'sent', 'посылать'],
   ['lend', 'lent', 'lent', 'давать в долг'],
@@ -20,22 +19,18 @@ const initialDictionary: DictionaryItem[] = [
   ['burn', 'burnt', 'burnt', 'гореть'],
   ['learn', 'learnt', 'learnt', 'учить (что-либо), узнавать'],
   ['hear', 'heard', 'heard', 'слышать'],
-
   ['buy', 'bought', 'bought', 'покупать'],
   ['bring', 'brought', 'brought', 'приносить'],
   ['fight', 'fought', 'fought', 'драться, сражаться'],
   ['catch', 'caught', 'caught', 'ловить, поймать'],
   ['teach', 'taught', 'taught', 'учить (кого-либо), узнавать'],
   ['think', 'thought', 'thought', 'думать'],
-
   ['make', 'made', 'made', 'делать (руками), изготавливать'],
   ['run', 'ran', 'run', 'бегать'],
   ['fall', 'fell', 'fallen', 'падать'],
   ['shine', 'shone', 'shone', 'светить'],
-
   ['take', 'took', 'taken', 'брать, взять'],
   ['shake', 'shook', 'shaken', 'трясти'],
-
   ['grow', 'grew', 'grown', 'расти'],
   ['throw', 'threw', 'thrown', 'бросать'],
   ['fly', 'flew', 'flown', 'летать'],
@@ -43,23 +38,18 @@ const initialDictionary: DictionaryItem[] = [
   ['know', 'knew', 'known', 'знать'],
   ['show', 'showed', 'shown', 'показывать'],
   ['draw', 'drew', 'drawn', 'рисовать'],
-
   ['wear', 'wore', 'worn', 'носить (одежду)'],
   ['tear', 'tore', 'torn', 'рвать'],
-
   ['hide', 'hid', 'hidden', 'прятать(-ся)'],
   ['bite', 'bit', 'bitten', 'кусать'],
-
   ['write', 'wrote', 'written', 'писать'],
   ['ride', 'rode', 'ridden', 'кататься'],
   ['drive', 'drove', 'driven', 'водить (машину)'],
-
   ['begin', 'began', 'begun', 'начинать'],
   ['swim', 'swam', 'swum', 'плавать'],
   ['drink', 'drank', 'drunk', 'пить'],
   ['sing', 'sang', 'sung', 'петь'],
   ['ring', 'rang', 'rung', 'звенеть'],
-
   ['be', 'was/were', 'been', 'быть'],
   ['see', 'saw', 'seen', 'видеть'],
   ['go', 'went', 'gone', 'идти'],
@@ -76,7 +66,6 @@ const initialDictionary: DictionaryItem[] = [
   ['forget', 'forgot', 'forgotten', 'забывать'],
   ['give', 'gave', 'given', 'давать'],
   ['forgive', 'forgave', 'forgiven', 'прощать'],
-
   ['come', 'came', 'come', 'приходить'],
   ['become', 'became', 'become', 'становиться'],
   ['stand', 'stood', 'stood', 'стоять'],
@@ -88,7 +77,6 @@ const initialDictionary: DictionaryItem[] = [
   ['sell', 'sold', 'sold', 'продавать'],
   ['tell', 'told', 'told', 'говорить, сказать'],
   ['pay', 'paid', 'paid', 'платить'],
-
   ['shut', 'shut', 'shut', 'закрывать'],
   ['cut', 'cut', 'cut', 'резать'],
   ['set', 'set', 'set', 'садиться (о солнце)'],
@@ -100,6 +88,24 @@ const initialDictionary: DictionaryItem[] = [
   ['hit', 'hit', 'hit', 'ударять'],
   ['cost', 'cost', 'cost', 'стоить'],
   ['lose', 'lost', 'lost', 'терять'],
+  ['bleed', 'bled', 'bled', 'кровоточить'],
+  ['burst', 'burst', 'burst', 'взрываться'],
+  ['deal', 'dealt', 'dealt', 'иметь дело'],
+  ['dig', 'dug', 'dug', 'копать'],
+  ['forbid', 'forbade', 'forbidden', 'запрещать'],
+  ['hold', 'held', 'held', 'держать'],
+  ['lay', 'laid', 'laid', 'лежать'],
+  ['lie', 'lay', 'lain', 'лежать'],
+  ['lite', 'lit', 'lit', 'наполнять'],
+  ['mistake', 'mistook', 'mistaken', 'ошибаться'],
+  ['rise', 'rose', 'risen', 'возникать'],
+  ['say', 'said', 'said', 'говорить say ...'],
+  ['spill', 'spilt', 'spilt', 'проливать'],
+  ['spread', 'spread', 'spread', 'распространять'],
+  ['spring', 'sprang', 'sprung', 'прыгать, spring ...'],
+  ['steal', 'stole', 'stolen', 'красть'],
+  ['stick', 'stuck', 'stuck', 'прикреплять'],
+  ['sting', 'stung', 'stung', 'жалить'],
 ];
 
 export default initialDictionary;
