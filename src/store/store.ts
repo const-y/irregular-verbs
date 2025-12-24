@@ -2,12 +2,15 @@ import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
 import initialDictionary from '../initialDictionary';
+import { Tab, TABS } from '../constants/tabs';
+import { DictionaryItem } from '../models/DictionaryItem';
 
 export default class Store {
-  dictionary = initialDictionary;
+  dictionary: DictionaryItem[] = initialDictionary;
   isSuccess = false;
   errorMessage = '';
   isTestingMode = false;
+  activeTab: Tab = TABS.TEST;
 
   constructor() {
     makeAutoObservable(this);
@@ -36,6 +39,9 @@ export default class Store {
 
   setIsTestingMode(isTestingMode: boolean) {
     this.isTestingMode = isTestingMode;
+    if (isTestingMode) {
+      this.activeTab = TABS.TEST;
+    }
   }
 
   shuffleDictionary() {
@@ -63,6 +69,8 @@ export default class Store {
   }
 
   checkAnswer(answer: string) {
+    this.hideSuccess();
+    this.hideError();
     if (this.isAnswerCorrect(answer)) {
       this.showSuccess();
     } else {
@@ -78,5 +86,9 @@ export default class Store {
       this.hideError();
       this.shuffleDictionary();
     }
+  }
+
+  setActiveTab(activeTab: Tab) {
+    this.activeTab = activeTab;
   }
 }
