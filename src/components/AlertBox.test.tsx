@@ -4,11 +4,7 @@ import React from 'react';
 
 it('renders correctly', () => {
   const tree = render(
-    <AlertBox
-      sampler={['meet', 'met', 'met', 'встречать']}
-      success={false}
-      error=""
-    />
+    <AlertBox translate="встречать" success={false} error="" />,
   );
 
   expect(tree).toMatchSnapshot();

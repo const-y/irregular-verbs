@@ -1,14 +1,13 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import { DictionaryItem } from '../models/DictionaryItem';
 
 interface AlertBoxProps {
-  sampler: DictionaryItem;
+  translate: string;
   success: boolean;
   error: string;
 }
 
-function AlertBox({ sampler, success, error }: AlertBoxProps) {
+function AlertBox({ translate, success, error }: AlertBoxProps) {
   if (success) {
     return (
       <Alert data-testid="alert-box" variant="success">
@@ -26,7 +25,7 @@ function AlertBox({ sampler, success, error }: AlertBoxProps) {
 
   return (
     <Alert data-testid="alert-box" variant="primary">
-      {sampler[3]}
+      {translate}
     </Alert>
   );
 }
