@@ -5,15 +5,16 @@ import '@testing-library/jest-dom';
 import noop from 'lodash/noop';
 import { StoreContext } from '../context/storeContext';
 import Store from '../store/store';
+import { getDictionary } from '../__mocks__/api/dictionary.api';
 
 const mockSubmit = jest.fn();
 
 const renderQuestionForm = (disabled = false) => {
-  const mockStore = new Store();
+  const mockStore = new Store(getDictionary);
   return render(
     <StoreContext.Provider value={mockStore}>
       <QuestionForm disabled={disabled} onSubmit={mockSubmit} onNext={noop} />
-    </StoreContext.Provider>
+    </StoreContext.Provider>,
   );
 };
 
@@ -21,7 +22,7 @@ describe('QuestionForm', () => {
   it('отображает форму и кнопку', () => {
     const { getByPlaceholderText, getByText } = renderQuestionForm();
     const inputElement = getByPlaceholderText(
-      'Введите перевод в трех формах через пробел'
+      'Введите перевод в трех формах через пробел',
     );
     const buttonElement = getByText('Проверить');
 
@@ -33,7 +34,7 @@ describe('QuestionForm', () => {
     mockSubmit.mockImplementation(() => Promise.resolve());
     const { getByPlaceholderText, getByText } = renderQuestionForm();
     const inputElement = getByPlaceholderText(
-      'Введите перевод в трех формах через пробел'
+      'Введите перевод в трех формах через пробел',
     );
     const buttonElement = getByText('Проверить');
 
@@ -48,7 +49,7 @@ describe('QuestionForm', () => {
   it('отключает форму и кнопку в случае, если disabled === true', () => {
     const { getByPlaceholderText, getByText } = renderQuestionForm(true);
     const inputElement = getByPlaceholderText(
-      'Введите перевод в трех формах через пробел'
+      'Введите перевод в трех формах через пробел',
     );
 
     const buttonElement = getByText('Проверить');

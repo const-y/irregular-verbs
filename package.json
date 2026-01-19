@@ -5,6 +5,7 @@
   "homepage": "https://const-y.github.io/irregular-verbs/",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.90.19",
     "bootstrap": "^5.3.3",
     "lodash": "^4.17.21",
     "lucide-react": "^0.454.0",
@@ -37,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.91.3",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.0",

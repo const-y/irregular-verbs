@@ -1,19 +1,22 @@
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import initialDictionary from '../initialDictionary';
 import { Tab, TABS } from '../constants/tabs';
-import { DictionaryItem } from '../models/DictionaryItem';
+import { Verb } from '../types/verb';
 
 export default class Store {
-  dictionary: DictionaryItem[] = initialDictionary;
+  dictionary: Verb[] = [];
+  initialLength = 1;
   isSuccess = false;
   errorMessage = '';
   isTestingMode = false;
   activeTab: Tab = TABS.TEST;
+  dictionaryFetcher: () => Promise<Verb[]>;
 
-  constructor() {
+  constructor(dictionaryFetcher: () => Promise<Verb[]>) {
     makeAutoObservable(this);
+
+    this.dictionaryFetcher = dictionaryFetcher;
 
     this.shuffleDictionary();
   }
@@ -23,7 +26,7 @@ export default class Store {
   }
 
   get percents() {
-    return 100 - (this.dictionary.length / initialDictionary.length) * 100;
+    return 100 - (this.dictionary.length / this.initialLength) * 100;
   }
 
   get isAnswered(): boolean {
@@ -31,8 +34,8 @@ export default class Store {
   }
 
   isAnswerCorrect(answer: string) {
-    const [infinitive, past, participle] = this.firstDictionaryItem;
-    const answerSampler = infinitive + ' ' + past + ' ' + participle;
+    const { base, past, pastParticiple } = this.firstDictionaryItem;
+    const answerSampler = base + ' ' + past + ' ' + pastParticiple;
 
     return answer.toLowerCase() === answerSampler;
   }
@@ -41,6 +44,10 @@ export default class Store {
     this.isTestingMode = isTestingMode;
     if (isTestingMode) {
       this.activeTab = TABS.TEST;
+    } else {
+      this.initialLength = 1;
+      this.isSuccess = false;
+      this.errorMessage = '';
     }
   }
 
@@ -74,7 +81,11 @@ export default class Store {
     if (this.isAnswerCorrect(answer)) {
       this.showSuccess();
     } else {
-      this.showError(this.firstDictionaryItem.join(', '));
+      const { base, past, pastParticiple, translation } =
+        this.firstDictionaryItem;
+      this.showError(
+        `Неправильно. Правильный ответ: ${base} ${past} ${pastParticiple} - ${translation}`,
+      );
     }
   }
 
@@ -90,5 +101,20 @@ export default class Store {
 
   setActiveTab(activeTab: Tab) {
     this.activeTab = activeTab;
+  }
+
+  setDictionary(dictionary: Verb[]) {
+    this.dictionary = dictionary;
+    this.initialLength = dictionary.length;
+  }
+
+  async loadTest() {
+    try {
+      const response = await this.dictionaryFetcher();
+      this.setDictionary(response);
+      this.shuffleDictionary();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

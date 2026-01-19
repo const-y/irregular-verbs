@@ -1,10 +1,22 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Table } from 'react-bootstrap';
-import { useStoreContext } from '../context/storeContext';
-import { observer } from 'mobx-react-lite';
+import { Table, Spinner, Alert } from 'react-bootstrap';
+import { getDictionary } from '../api/dictionary.api';
+import { QUERY_KEYS } from '../constants/queryKeys';
 
 const DictionaryPage: React.FC = () => {
-  const store = useStoreContext();
+  const query = useQuery({
+    queryKey: QUERY_KEYS.dictionary,
+    queryFn: getDictionary,
+  });
+
+  if (query.isLoading) {
+    return <Spinner animation="border" />;
+  }
+
+  if (query.isError) {
+    return <Alert variant="danger">{query.error.message}</Alert>;
+  }
 
   return (
     <div className="width-100 overflow-auto">
@@ -19,16 +31,16 @@ const DictionaryPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {store.dictionary.map(
-            ([infinitive, past, participle, translation], index) => (
-              <tr key={infinitive}>
+          {query.data?.map(
+            ({ id, base, past, pastParticiple, translation }, index) => (
+              <tr key={id}>
                 <td>{index + 1}</td>
-                <td>{infinitive}</td>
+                <td>{base}</td>
                 <td>{past}</td>
-                <td>{participle}</td>
+                <td>{pastParticiple}</td>
                 <td>{translation}</td>
               </tr>
-            )
+            ),
           )}
         </tbody>
       </Table>
@@ -36,4 +48,4 @@ const DictionaryPage: React.FC = () => {
   );
 };
 
-export default observer(DictionaryPage);
+export default DictionaryPage;
