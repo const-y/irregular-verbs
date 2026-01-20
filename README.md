@@ -1,8 +1,7 @@
 # Irregular verbs
 
 [![Github workflow](https://github.com/const-y/irregular-verbs/actions/workflows/main.yml/badge.svg)](https://github.com/const-y/irregular-verbs/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b8876ae8d2199e8da902/maintainability)](https://codeclimate.com/github/const-y/irregular-verbs/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b8876ae8d2199e8da902/test_coverage)](https://codeclimate.com/github/const-y/irregular-verbs/test_coverage)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=const-y_irregular-verbs&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=const-y_irregular-verbs)
 
 Приложение для запоминания английских неправильных глаголов
 
