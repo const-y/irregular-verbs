@@ -3,11 +3,11 @@ import { X } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import AlertBox from '../components/AlertBox';
-import Picture from '../components/Picture';
-import Progress from '../components/Progress';
-import QuestionForm from '../components/QuestionForm';
-import { useStoreContext } from '../context/storeContext';
+import AlertBox from '@/components/AlertBox';
+import Picture from '@/components/Picture';
+import Progress from '@/components/Progress';
+import QuestionForm from '@/components/QuestionForm';
+import { useStoreContext } from '@/context/storeContext';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();

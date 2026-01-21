@@ -1,13 +1,13 @@
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
 import QuestionForm from './QuestionForm';
-import '@testing-library/jest-dom';
 import noop from 'lodash/noop';
-import { StoreContext } from '../context/storeContext';
-import Store from '../store/store';
-import { getDictionary } from '../__mocks__/api/dictionary.api';
+import { StoreContext } from '@/context/storeContext';
+import Store from '@/store/store';
+import { getDictionary } from '@/__mocks__/api/dictionary.api';
+import { vi, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 
-const mockSubmit = jest.fn();
+const mockSubmit = vi.fn();
 
 const renderQuestionForm = (disabled = false) => {
   const mockStore = new Store(getDictionary);
@@ -19,42 +19,40 @@ const renderQuestionForm = (disabled = false) => {
 };
 
 describe('QuestionForm', () => {
-  it('отображает форму и кнопку', () => {
-    const { getByPlaceholderText, getByText } = renderQuestionForm();
-    const inputElement = getByPlaceholderText(
+  it('отображает форму и кнопку', async () => {
+    const { getByPlaceholder, getByText } = await renderQuestionForm();
+    const inputElement = getByPlaceholder(
       'Введите перевод в трех формах через пробел',
     );
     const buttonElement = getByText('Проверить');
 
-    expect(inputElement).toBeInTheDocument();
-    expect(buttonElement).toBeInTheDocument();
+    await expect.element(inputElement).toBeInTheDocument();
+    await expect.element(buttonElement).toBeInTheDocument();
   });
 
   it('вызывает onSubmit с введенным ответом при отправке формы', async () => {
     mockSubmit.mockImplementation(() => Promise.resolve());
-    const { getByPlaceholderText, getByText } = renderQuestionForm();
-    const inputElement = getByPlaceholderText(
+    const { getByPlaceholder, getByText } = await renderQuestionForm();
+    const inputElement = getByPlaceholder(
       'Введите перевод в трех формах через пробел',
     );
     const buttonElement = getByText('Проверить');
 
-    fireEvent.change(inputElement, { target: { value: 'ответ' } });
-    fireEvent.click(buttonElement);
+    await userEvent.fill(inputElement, 'ответ');
+    await userEvent.click(buttonElement);
 
-    await waitFor(() => {
-      expect(mockSubmit).toHaveBeenCalledWith('ответ');
-    });
+    expect(mockSubmit).toHaveBeenCalledWith('ответ');
   });
 
-  it('отключает форму и кнопку в случае, если disabled === true', () => {
-    const { getByPlaceholderText, getByText } = renderQuestionForm(true);
-    const inputElement = getByPlaceholderText(
+  it('отключает форму и кнопку в случае, если disabled === true', async () => {
+    const { getByPlaceholder, getByText } = await renderQuestionForm(true);
+    const inputElement = getByPlaceholder(
       'Введите перевод в трех формах через пробел',
     );
 
     const buttonElement = getByText('Проверить');
 
-    expect(inputElement).toBeDisabled();
-    expect(buttonElement).toBeDisabled();
+    await expect.element(inputElement).toBeDisabled();
+    await expect.element(buttonElement).toBeDisabled();
   });
 });

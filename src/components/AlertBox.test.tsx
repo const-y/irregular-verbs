@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
 import AlertBox from './AlertBox';
-import React from 'react';
+import { it, expect } from 'vitest';
 
-it('renders correctly', () => {
-  const tree = render(
+it('renders correctly', async () => {
+  const page = await render(
     <AlertBox translate="встречать" success={false} error="" />,
   );
 
-  expect(tree).toMatchSnapshot();
+  expect(page).toMatchSnapshot();
 });

@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import React, {
-  ChangeEventHandler,
-  FormEventHandler,
+  type ChangeEventHandler,
+  type FormEventHandler,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useStoreContext } from '../context/storeContext';
+import { useStoreContext } from '@/context/storeContext';
 
 interface QuestionFormProps {
   disabled: boolean;

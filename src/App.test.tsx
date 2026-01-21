@@ -1,15 +1,16 @@
-import React from 'react';
 import App from './App';
 import { StoreContextProvider } from './context/storeContext';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render } from 'vitest-browser-react';
+import { it, expect } from 'vitest';
 
-it('renders without crashing', () => {
-  const { getByText } = render(
+it('renders without crashing', async () => {
+  const { getByText } = await render(
     <StoreContextProvider>
       <App />
-    </StoreContextProvider>
+    </StoreContextProvider>,
   );
 
-  expect(getByText('Учим неправильные глаголы')).toBeInTheDocument();
+  const title = getByText('Учим неправильные глаголы');
+
+  await expect.element(title).toBeInTheDocument();
 });

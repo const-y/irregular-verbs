@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Table, Spinner, Alert } from 'react-bootstrap';
-import { getDictionary } from '../api/dictionary.api';
-import { QUERY_KEYS } from '../constants/queryKeys';
+import { getDictionary } from '@/api/dictionary.api';
+import { QUERY_KEYS } from '@/constants/queryKeys';
 
 const DictionaryPage: React.FC = () => {
   const query = useQuery({

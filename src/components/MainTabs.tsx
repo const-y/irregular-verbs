@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { useStoreContext } from '../context/storeContext';
-import QuestionsPage from '../pages/QuestionsPage';
-import DictionaryPage from '../pages/DictionaryPage';
-import { isTab, TABS } from '../constants/tabs';
+import { useStoreContext } from '@/context/storeContext';
+import QuestionsPage from '@/pages/QuestionsPage';
+import DictionaryPage from '@/pages/DictionaryPage';
+import { isTab, TABS } from '@/constants/tabs';
 
 const MainTabs: React.FC = () => {
   const store = useStoreContext();

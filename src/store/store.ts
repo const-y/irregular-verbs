@@ -1,8 +1,8 @@
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import { Tab, TABS } from '../constants/tabs';
-import { Verb } from '../types/verb';
+import { type Tab, TABS } from '@/constants/tabs';
+import { type Verb } from '@/types/verb';
 
 export default class Store {
   dictionary: Verb[] = [];

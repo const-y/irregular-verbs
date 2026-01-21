@@ -1,4 +1,4 @@
-import { Verb } from '../../types/verb';
+import { type Verb } from '@/types/verb';
 
 const mockDictionary: Verb[] = [
   {
@@ -32,5 +32,9 @@ const mockDictionary: Verb[] = [
 ];
 
 export const getDictionary = async (): Promise<Verb[]> => {
-  return Promise.resolve(mockDictionary);
+  return mockDictionary;
+};
+
+export const getEmptyDictionary = async (): Promise<Verb[]> => {
+  return [];
 };
