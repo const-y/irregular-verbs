@@ -19,3 +19,7 @@ test-coverage:
 
 dev:
 	yarn dev
+
+preview:
+	yarn build
+	yarn preview

@@ -5,7 +5,7 @@ import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
   plugins: [react()],
-
+  base: '/irregular-verbs/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
