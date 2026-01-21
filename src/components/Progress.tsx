@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { useStoreContext } from '../context/storeContext';
+import { useStoreContext } from '@/context/storeContext';
 
 const Progress: React.FC = () => {
   const store = useStoreContext();

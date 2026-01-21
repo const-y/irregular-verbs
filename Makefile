@@ -17,4 +17,4 @@ test-coverage:
 	yarn test --coverage .
 
 dev:
-	yarn start
+	yarn dev

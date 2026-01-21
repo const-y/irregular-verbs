@@ -1,6 +1,6 @@
-import React, { ReactNode, createContext, useContext } from 'react';
-import Store from '../store/store';
-import { getDictionary } from '../api/dictionary.api';
+import { type ReactNode, createContext, useContext } from 'react';
+import Store from '@/store/store';
+import { getDictionary } from '@/api/dictionary.api';
 
 interface StoreContextProviderProps {
   children: ReactNode;

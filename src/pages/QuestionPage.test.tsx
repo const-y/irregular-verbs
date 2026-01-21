@@ -1,13 +1,12 @@
-import React from 'react';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { StoreContext } from '../context/storeContext'; // Предположим, что у вас есть контекст StoreContext
+import { render, fireEvent, screen } from '@testing-library/react';
+import { StoreContext } from '@/context/storeContext'; // Предположим, что у вас есть контекст StoreContext
 import QuestionsPage from './QuestionsPage';
-import Store from '../store/store';
+import Store from '@/store/store';
 import '@testing-library/jest-dom';
-import { mockDictionary } from '../test/fixtures/dictionary';
-import { getDictionary } from '../__mocks__/api/dictionary.api';
+import { mockDictionary } from '@/test/fixtures/dictionary';
+import { getDictionary } from '@/__mocks__/api/dictionary.api';
 
-jest.mock('../api/dictionary.api');
+jest.mock('@/api/dictionary.api');
 
 const createMockStore = () => {
   const store = new Store(getDictionary);

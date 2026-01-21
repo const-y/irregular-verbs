@@ -1,11 +1,10 @@
-import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import QuestionForm from './QuestionForm';
 import '@testing-library/jest-dom';
 import noop from 'lodash/noop';
-import { StoreContext } from '../context/storeContext';
-import Store from '../store/store';
-import { getDictionary } from '../__mocks__/api/dictionary.api';
+import { StoreContext } from '@/context/storeContext';
+import Store from '@/store/store';
+import { getDictionary } from '@/__mocks__/api/dictionary.api';
 
 const mockSubmit = jest.fn();
 

@@ -1,4 +1,4 @@
-import { Verb } from '../../types/verb';
+import { type Verb } from '@/types/verb';
 
 const mockDictionary: Verb[] = [
   {
