@@ -7,13 +7,13 @@ const Picture: React.FC = () => {
   const store = useStoreContext();
 
   const addImageFallback = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = '/images/uk-flag.svg';
+    event.currentTarget.src = `${import.meta.env.BASE_URL}/images/uk-flag.svg`;
   };
 
   return (
     <picture>
       <Image
-        src={`/images/${store.firstDictionaryItem.base}.webp`}
+        src={`${import.meta.env.BASE_URL}images/${store.firstDictionaryItem.base}.webp`}
         onError={addImageFallback}
         rounded
         height={250}
