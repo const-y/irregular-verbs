@@ -2,7 +2,8 @@ install:
 	yarn
 
 ci: 
-	yarn install
+	yarn install --frozen-lockfile
+	yarn playwright install --with-deps
 
 lint:
 	npx eslint .
