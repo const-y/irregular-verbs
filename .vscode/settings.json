@@ -1,0 +1,6 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "const-y",
+    "projectKey": "const-y_irregular-verbs"
+  }
+}

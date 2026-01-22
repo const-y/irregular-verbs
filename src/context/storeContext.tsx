@@ -1,6 +1,5 @@
-import { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 import Store from '@/store/store';
-import { getDictionary } from '@/api/dictionary.api';
 
 interface StoreContextProviderProps {
   children: ReactNode;
@@ -9,10 +8,10 @@ interface StoreContextProviderProps {
 export const StoreContext = createContext<Store | null>(null);
 
 export function StoreContextProvider({ children }: StoreContextProviderProps) {
+  const store = useMemo(() => new Store(), []);
+
   return (
-    <StoreContext.Provider value={new Store(getDictionary)}>
-      {children}
-    </StoreContext.Provider>
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );
 }
 

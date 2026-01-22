@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Table, Spinner, Alert } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import { getDictionary } from '@/api/dictionary.api';
 import { QUERY_KEYS } from '@/constants/queryKeys';
+import Preloader from '@/components/Preloader';
 
 const DictionaryPage: React.FC = () => {
   const query = useQuery({
@@ -11,7 +12,7 @@ const DictionaryPage: React.FC = () => {
   });
 
   if (query.isLoading) {
-    return <Spinner animation="border" />;
+    return <Preloader />;
   }
 
   if (query.isError) {
