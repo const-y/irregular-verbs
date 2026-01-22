@@ -11,13 +11,9 @@ export default class Store {
   errorMessage = '';
   isTestingMode = false;
   activeTab: Tab = TABS.TEST;
-  dictionaryFetcher: () => Promise<Verb[]>;
-  isLoading = false;
 
-  constructor(dictionaryFetcher: () => Promise<Verb[]>) {
+  constructor() {
     makeAutoObservable(this);
-
-    this.dictionaryFetcher = dictionaryFetcher;
 
     this.shuffleDictionary();
   }
@@ -107,18 +103,5 @@ export default class Store {
   setDictionary(dictionary: Verb[]) {
     this.dictionary = dictionary;
     this.initialLength = dictionary.length;
-  }
-
-  async loadTest() {
-    this.isLoading = true;
-    try {
-      const response = await this.dictionaryFetcher();
-      this.setDictionary(response);
-      this.shuffleDictionary();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      this.isLoading = false;
-    }
   }
 }

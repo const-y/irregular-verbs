@@ -9,15 +9,25 @@ import Progress from '@/components/Progress';
 import QuestionForm from '@/components/QuestionForm';
 import { useStoreContext } from '@/context/storeContext';
 import Preloader from '@/components/Preloader';
+import { QUERY_KEYS } from '@/constants/queryKeys';
+import { getDictionary } from '@/api/dictionary.api';
+import { useQuery } from '@tanstack/react-query';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();
+  const query = useQuery({
+    queryKey: QUERY_KEYS.dictionary,
+    queryFn: getDictionary,
+  });
 
   useEffect(() => {
-    store.loadTest();
-  }, [store]);
+    if (query.data) {
+      store.setDictionary(query.data);
+      store.shuffleDictionary();
+    }
+  }, [store, query.data]);
 
-  if (store.isLoading) {
+  if (query.isLoading) {
     return <Preloader />;
   }
 

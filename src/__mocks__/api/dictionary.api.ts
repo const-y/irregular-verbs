@@ -34,7 +34,3 @@ const mockDictionary: Verb[] = [
 export const getDictionary = async (): Promise<Verb[]> => {
   return mockDictionary;
 };
-
-export const getEmptyDictionary = async (): Promise<Verb[]> => {
-  return [];
-};
