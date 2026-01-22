@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { StoreContextProvider } from './context/storeContext';

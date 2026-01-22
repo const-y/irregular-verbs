@@ -8,6 +8,7 @@ import Picture from '@/components/Picture';
 import Progress from '@/components/Progress';
 import QuestionForm from '@/components/QuestionForm';
 import { useStoreContext } from '@/context/storeContext';
+import Preloader from '@/components/Preloader';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();
@@ -15,6 +16,10 @@ const QuestionsPage: React.FC = () => {
   useEffect(() => {
     store.loadTest();
   }, [store]);
+
+  if (store.isLoading) {
+    return <Preloader />;
+  }
 
   if (isEmpty(store.firstDictionaryItem)) {
     return <div>Нет слов для повторения</div>;
