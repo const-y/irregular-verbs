@@ -1,4 +1,4 @@
-import { type ReactNode, createContext, useContext } from 'react';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 import Store from '@/store/store';
 
 interface StoreContextProviderProps {
@@ -8,10 +8,10 @@ interface StoreContextProviderProps {
 export const StoreContext = createContext<Store | null>(null);
 
 export function StoreContextProvider({ children }: StoreContextProviderProps) {
+  const store = useMemo(() => new Store(), []);
+
   return (
-    <StoreContext.Provider value={new Store()}>
-      {children}
-    </StoreContext.Provider>
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );
 }
 
