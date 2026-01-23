@@ -1,22 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { Table, Alert } from 'react-bootstrap';
 import { getDictionary } from '@/api/dictionary.api';
-import { QUERY_KEYS } from '@/constants/queryKeys';
 import Preloader from '@/components/Preloader';
+import VerbProgress from '@/components/VerbProgress';
+import { QUERY_KEYS } from '@/constants/queryKeys';
+import { loadProgress } from '@/storage/progress.storage';
+import { useQuery } from '@tanstack/react-query';
+import React, { useMemo } from 'react';
+import { Alert, Table } from 'react-bootstrap';
 
 const DictionaryPage: React.FC = () => {
-  const query = useQuery({
+  const { isLoading, isError, error, data } = useQuery({
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
   });
 
-  if (query.isLoading) {
+  const progressMap = useMemo(() => loadProgress(), []);
+
+  if (isLoading) {
     return <Preloader />;
   }
 
-  if (query.isError) {
-    return <Alert variant="danger">{query.error.message}</Alert>;
+  if (isError) {
+    return <Alert variant="danger">{error.message}</Alert>;
   }
 
   return (
@@ -29,10 +33,11 @@ const DictionaryPage: React.FC = () => {
             <th>Past Simple</th>
             <th>Past Participle</th>
             <th>Перевод</th>
+            <th>Прогресс</th>
           </tr>
         </thead>
         <tbody>
-          {query.data?.map(
+          {data?.map(
             ({ id, base, past, pastParticiple, translation }, index) => (
               <tr key={id}>
                 <td>{index + 1}</td>
@@ -40,6 +45,9 @@ const DictionaryPage: React.FC = () => {
                 <td>{past}</td>
                 <td>{pastParticiple}</td>
                 <td>{translation}</td>
+                <td>
+                  <VerbProgress progress={progressMap[id]} />
+                </td>
               </tr>
             ),
           )}

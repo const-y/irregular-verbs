@@ -3,6 +3,7 @@ import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
 import { type Tab, TABS } from '@/constants/tabs';
 import { type Verb } from '@/types/verb';
+import { getProgress, saveProgress } from '@/storage/progress.storage';
 
 export default class Store {
   dictionary: Verb[] = [];
@@ -73,17 +74,26 @@ export default class Store {
   }
 
   checkAnswer(answer: string) {
+    const { id, base, past, pastParticiple, translation } =
+      this.firstDictionaryItem;
+
+    const progress = getProgress(id);
+
     this.hideSuccess();
     this.hideError();
+
     if (this.isAnswerCorrect(answer)) {
       this.showSuccess();
+      progress.success++;
+      progress.strength = Math.min(1, progress.strength + 0.15);
     } else {
-      const { base, past, pastParticiple, translation } =
-        this.firstDictionaryItem;
-      this.showError(
-        `Неправильно. Правильный ответ: ${base} ${past} ${pastParticiple} - ${translation}`,
-      );
+      this.showError(`${base} ${past} ${pastParticiple} - ${translation}`);
+      progress.fail++;
+      progress.strength = Math.max(0, progress.strength - 0.25);
     }
+
+    progress.lastSeen = Date.now();
+    saveProgress(id, progress);
   }
 
   nextQuestion() {
