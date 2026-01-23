@@ -47,6 +47,11 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   const handleAnswerChange: ChangeEventHandler<HTMLInputElement> = (event) =>
     setAnswer(event.target.value);
 
+  const handleSkip = () => {
+    onSubmit('');
+    setAnswer('');
+  };
+
   return (
     <Form onSubmit={handleSubmit} data-testid="question-form">
       <Form.Control
@@ -64,9 +69,14 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             Далее
           </Button>
         ) : (
-          <Button type="submit" disabled={disabled || !answer} size="lg">
-            Проверить
-          </Button>
+          <div className="d-flex justify-content-center gap-2">
+            <Button type="submit" disabled={disabled || !answer} size="lg">
+              Проверить
+            </Button>
+            <Button size="lg" variant="secondary" onClick={handleSkip}>
+              Пропустить
+            </Button>
+          </div>
         )}
       </div>
     </Form>

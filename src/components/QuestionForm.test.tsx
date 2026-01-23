@@ -3,7 +3,7 @@ import QuestionForm from './QuestionForm';
 import noop from 'lodash/noop';
 import { StoreContext } from '@/context/storeContext';
 import Store from '@/store/store';
-import { vi, describe, expect, it } from 'vitest';
+import { vi, describe, expect, it, beforeEach } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
 const mockSubmit = vi.fn();
@@ -18,6 +18,10 @@ const renderQuestionForm = (disabled = false) => {
 };
 
 describe('QuestionForm', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('отображает форму и кнопку', async () => {
     const { getByPlaceholder, getByText } = await renderQuestionForm();
     const inputElement = getByPlaceholder(
@@ -30,7 +34,6 @@ describe('QuestionForm', () => {
   });
 
   it('вызывает onSubmit с введенным ответом при отправке формы', async () => {
-    mockSubmit.mockImplementation(() => Promise.resolve());
     const { getByPlaceholder, getByText } = await renderQuestionForm();
     const inputElement = getByPlaceholder(
       'Введите перевод в трех формах через пробел',
@@ -53,5 +56,14 @@ describe('QuestionForm', () => {
 
     await expect.element(inputElement).toBeDisabled();
     await expect.element(buttonElement).toBeDisabled();
+  });
+
+  it('должен вызвать onSubmit c пустой строкой при нажатии на кнопку "Пропустить"', async () => {
+    const screen = await renderQuestionForm();
+    const inputElement = screen.getByPlaceholder(/введите перевод/i);
+    await userEvent.fill(inputElement, 'ответ');
+    await userEvent.click(screen.getByRole('button', { name: /пропустить/i }));
+
+    expect(mockSubmit).toHaveBeenCalledWith('');
   });
 });
