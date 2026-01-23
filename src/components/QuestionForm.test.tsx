@@ -3,14 +3,13 @@ import QuestionForm from './QuestionForm';
 import noop from 'lodash/noop';
 import { StoreContext } from '@/context/storeContext';
 import Store from '@/store/store';
-import { getDictionary } from '@/__mocks__/api/dictionary.api';
 import { vi, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
 const mockSubmit = vi.fn();
 
 const renderQuestionForm = (disabled = false) => {
-  const mockStore = new Store(getDictionary);
+  const mockStore = new Store();
   return render(
     <StoreContext.Provider value={mockStore}>
       <QuestionForm disabled={disabled} onSubmit={mockSubmit} onNext={noop} />

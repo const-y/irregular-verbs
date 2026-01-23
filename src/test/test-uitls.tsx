@@ -4,25 +4,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StoreContext } from '../context/storeContext';
 import Store from '../store/store';
 
-const createTestQueryClient = () => {
-  return new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-        gcTime: Infinity,
-        retry: false,
-        enabled: false,
-      },
-    },
-  });
-};
+const queryClient = new QueryClient();
 
 const TestProvider: React.FC<PropsWithChildren<{ store?: Store }>> = ({
   children,
   store = new Store(),
 }) => {
-  const queryClient = createTestQueryClient();
-
   return (
     <QueryClientProvider client={queryClient}>
       <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
