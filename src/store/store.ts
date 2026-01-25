@@ -5,6 +5,7 @@ import { type Tab, TABS } from '@/constants/tabs';
 import { type Verb } from '@/types/verb';
 import { getProgress, saveProgress } from '@/storage/progress.storage';
 import type { TaskMode } from '@/types/test';
+import { getRandomItem } from '@/utils/array';
 
 export default class Store {
   dictionary: Verb[] = [];
@@ -14,11 +15,11 @@ export default class Store {
   isTestingMode = false;
   activeTab: Tab = TABS.TEST;
   taskMode: TaskMode = 'translateToForms';
-  randomizer: () => number;
+  getRandom: () => number;
 
-  constructor(randomizer: () => number) {
+  constructor(getRandom: () => number) {
     makeAutoObservable(this);
-    this.randomizer = randomizer;
+    this.getRandom = getRandom;
 
     this.shuffleDictionary();
   }
@@ -115,7 +116,10 @@ export default class Store {
       this.shuffleDictionary();
     }
 
-    this.taskMode = getRandomTaskMode(this.randomizer);
+    this.taskMode = getRandomItem(
+      ['translateToForms', 'missingForm'],
+      this.getRandom,
+    );
   }
 
   setActiveTab(activeTab: Tab) {
@@ -126,9 +130,4 @@ export default class Store {
     this.dictionary = dictionary;
     this.initialLength = dictionary.length;
   }
-}
-
-function getRandomTaskMode(randomizer: () => number): TaskMode {
-  const modes: TaskMode[] = ['translateToForms', 'missingForm'];
-  return modes[Math.floor(randomizer() * modes.length)];
 }

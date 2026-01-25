@@ -9,12 +9,15 @@ import React, {
 import { Button, Form, Table } from 'react-bootstrap';
 import { useStoreContext } from '@/context/storeContext';
 import type { VerbForm } from '@/types/verb';
+import { getRandomItem } from '@/utils/array';
 
 interface MissingFormProps {
   disabled: boolean;
   onSubmit: (answer: string) => void;
   onNext: () => void;
 }
+
+const VERB_FORMS: VerbForm[] = ['base', 'past', 'pastParticiple'];
 
 const MissingForm: React.FC<MissingFormProps> = ({
   disabled,
@@ -25,7 +28,9 @@ const MissingForm: React.FC<MissingFormProps> = ({
   const store = useStoreContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
-  const [missingForm, setMissingForm] = useState(getRandomForm());
+  const [missingForm, setMissingForm] = useState(
+    getRandomItem(VERB_FORMS, Math.random),
+  );
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -47,7 +52,7 @@ const MissingForm: React.FC<MissingFormProps> = ({
   };
 
   useEffect(() => {
-    setMissingForm(getRandomForm());
+    setMissingForm(getRandomItem(VERB_FORMS, Math.random));
   }, [store.firstDictionaryItem]);
 
   useEffect(() => {
@@ -127,11 +132,5 @@ const MissingForm: React.FC<MissingFormProps> = ({
     </Form>
   );
 };
-
-function getRandomForm(): VerbForm {
-  return ['base', 'past', 'pastParticiple'][
-    Math.floor(Math.random() * 3)
-  ] as VerbForm;
-}
 
 export default observer(MissingForm);
