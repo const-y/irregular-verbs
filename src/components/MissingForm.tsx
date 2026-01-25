@@ -6,10 +6,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Form, Table } from 'react-bootstrap';
 import { useStoreContext } from '@/context/storeContext';
 import type { VerbForm } from '@/types/verb';
 import { getRandomItem } from '@/utils/array';
+import Actions from './Actions';
 
 interface MissingFormProps {
   disabled: boolean;
@@ -104,7 +105,6 @@ const MissingForm: React.FC<MissingFormProps> = ({
             <th style={{ width: `${columnWidth}%` }}>Past Participle</th>
           </tr>
         </thead>
-
         <tbody>
           <tr>
             <td>{renderCell('base')}</td>
@@ -113,22 +113,12 @@ const MissingForm: React.FC<MissingFormProps> = ({
           </tr>
         </tbody>
       </Table>
-      <div className="text-center m-3">
-        {store.isAnswered ? (
-          <Button size="lg" onClick={handleNext} ref={nextButtonRef}>
-            Далее
-          </Button>
-        ) : (
-          <div className="d-flex justify-content-center gap-2">
-            <Button type="submit" disabled={disabled || !answer} size="lg">
-              Проверить
-            </Button>
-            <Button size="lg" variant="secondary" onClick={handleSkip}>
-              Пропустить
-            </Button>
-          </div>
-        )}
-      </div>
+      <Actions
+        nextButtonRef={nextButtonRef}
+        onNextClick={handleNext}
+        isSubmitDisabled={disabled || !answer}
+        onSkipClick={handleSkip}
+      />
     </Form>
   );
 };

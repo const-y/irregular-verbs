@@ -6,8 +6,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useStoreContext } from '@/context/storeContext';
+import Actions from './Actions';
 
 interface QuestionFormProps {
   disabled: boolean;
@@ -63,22 +64,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
         disabled={disabled}
         className="mb-3"
       />
-      <div className="text-center m-3">
-        {store.isAnswered ? (
-          <Button size="lg" onClick={handleNext} ref={nextButtonRef}>
-            Далее
-          </Button>
-        ) : (
-          <div className="d-flex justify-content-center gap-2">
-            <Button type="submit" disabled={disabled || !answer} size="lg">
-              Проверить
-            </Button>
-            <Button size="lg" variant="secondary" onClick={handleSkip}>
-              Пропустить
-            </Button>
-          </div>
-        )}
-      </div>
+      <Actions
+        nextButtonRef={nextButtonRef}
+        onNextClick={handleNext}
+        isSubmitDisabled={disabled || !answer}
+        onSkipClick={handleSkip}
+      />
     </Form>
   );
 };
