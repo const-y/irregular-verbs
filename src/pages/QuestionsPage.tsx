@@ -65,13 +65,11 @@ const QuestionsPage: React.FC = () => {
       </div>
       <AlertBox />
       {store.taskMode === 'translateToForms' && (
-        <>
-          <QuestionForm
-            disabled={isFormDisabled}
-            onSubmit={handleSubmit}
-            onNext={() => store.nextQuestion()}
-          />
-        </>
+        <QuestionForm
+          disabled={isFormDisabled}
+          onSubmit={handleSubmit}
+          onNext={() => store.nextQuestion()}
+        />
       )}
       {store.taskMode === 'missingForm' && (
         <MissingForm
