@@ -1,32 +1,31 @@
+import { useStoreContext } from '@/context/storeContext';
+import { observer } from 'mobx-react-lite';
+import type { FC } from 'react';
 import { Alert } from 'react-bootstrap';
 
-interface AlertBoxProps {
-  translate: string;
-  success: boolean;
-  error: string;
-}
+const AlertBox: FC = () => {
+  const store = useStoreContext();
 
-function AlertBox({ translate, success, error }: AlertBoxProps) {
-  if (success) {
+  if (store.isSuccess) {
     return (
       <Alert data-testid="alert-box" variant="success">
         Верно!
       </Alert>
     );
   }
-  if (error) {
+  if (store.errorMessage) {
     return (
       <Alert data-testid="alert-box" variant="danger">
-        {error}
+        {store.errorMessage}
       </Alert>
     );
   }
 
   return (
     <Alert data-testid="alert-box" variant="primary">
-      {translate}
+      {store.taskDescription}
     </Alert>
   );
-}
+};
 
-export default AlertBox;
+export default observer(AlertBox);

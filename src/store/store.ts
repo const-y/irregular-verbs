@@ -4,6 +4,7 @@ import { makeAutoObservable } from 'mobx';
 import { type Tab, TABS } from '@/constants/tabs';
 import { type Verb } from '@/types/verb';
 import { getProgress, saveProgress } from '@/storage/progress.storage';
+import type { TaskMode } from '@/types/test';
 
 export default class Store {
   dictionary: Verb[] = [];
@@ -12,9 +13,12 @@ export default class Store {
   errorMessage = '';
   isTestingMode = false;
   activeTab: Tab = TABS.TEST;
+  taskMode: TaskMode = 'translateToForms';
+  randomizer: () => number;
 
-  constructor() {
+  constructor(randomizer: () => number) {
     makeAutoObservable(this);
+    this.randomizer = randomizer;
 
     this.shuffleDictionary();
   }
@@ -29,6 +33,12 @@ export default class Store {
 
   get isAnswered(): boolean {
     return this.isSuccess || !!this.errorMessage;
+  }
+
+  get taskDescription() {
+    return this.taskMode === 'missingForm'
+      ? 'Заполните пропуск'
+      : this.firstDictionaryItem.translation;
   }
 
   isAnswerCorrect(answer: string) {
@@ -104,6 +114,8 @@ export default class Store {
       this.hideError();
       this.shuffleDictionary();
     }
+
+    this.taskMode = getRandomTaskMode(this.randomizer);
   }
 
   setActiveTab(activeTab: Tab) {
@@ -114,4 +126,9 @@ export default class Store {
     this.dictionary = dictionary;
     this.initialLength = dictionary.length;
   }
+}
+
+function getRandomTaskMode(randomizer: () => number): TaskMode {
+  const modes: TaskMode[] = ['translateToForms', 'missingForm'];
+  return modes[Math.floor(randomizer() * modes.length)];
 }

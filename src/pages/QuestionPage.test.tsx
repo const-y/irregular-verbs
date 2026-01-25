@@ -24,7 +24,7 @@ describe('QuestionsPage', () => {
 
   it('отображает Progress и AlertBox', async () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue(verbsStub(3));
-    const mockStore = new Store();
+    const mockStore = new Store(() => 0);
 
     const page = await render(<QuestionsPage />, { store: mockStore });
 
@@ -43,7 +43,7 @@ describe('QuestionsPage', () => {
 
   it('отправляет ответ в QuestionForm и вызывает store.checkAnswer', async () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue(verbsStub(3));
-    const mockStore = new Store();
+    const mockStore = new Store(() => 0);
     const spyOnProcessAnswer = vi.spyOn(mockStore, 'checkAnswer');
 
     const page = await render(<QuestionsPage />, { store: mockStore });

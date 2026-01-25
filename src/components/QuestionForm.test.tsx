@@ -9,7 +9,7 @@ import { userEvent } from 'vitest/browser';
 const mockSubmit = vi.fn();
 
 const renderQuestionForm = (disabled = false) => {
-  const mockStore = new Store();
+  const mockStore = new Store(() => 0);
   return render(
     <StoreContext.Provider value={mockStore}>
       <QuestionForm disabled={disabled} onSubmit={mockSubmit} onNext={noop} />

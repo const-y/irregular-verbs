@@ -5,3 +5,5 @@ export interface Verb {
   pastParticiple: string;
   translation: string;
 }
+
+export type VerbForm = 'base' | 'past' | 'pastParticiple';
