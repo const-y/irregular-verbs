@@ -8,7 +8,7 @@ interface StoreContextProviderProps {
 export const StoreContext = createContext<Store | null>(null);
 
 export function StoreContextProvider({ children }: StoreContextProviderProps) {
-  const store = useMemo(() => new Store(), []);
+  const store = useMemo(() => new Store(Math.random), []);
 
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>

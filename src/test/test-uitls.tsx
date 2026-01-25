@@ -8,7 +8,7 @@ const queryClient = new QueryClient();
 
 const TestProvider: React.FC<PropsWithChildren<{ store?: Store }>> = ({
   children,
-  store = new Store(),
+  store = new Store(() => 0),
 }) => {
   return (
     <QueryClientProvider client={queryClient}>

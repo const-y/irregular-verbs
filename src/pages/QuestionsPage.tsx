@@ -12,6 +12,7 @@ import Preloader from '@/components/Preloader';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { getDictionary } from '@/api/dictionary.api';
 import { useQuery } from '@tanstack/react-query';
+import MissingForm from '@/components/MissingForm';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();
@@ -62,16 +63,21 @@ const QuestionsPage: React.FC = () => {
       <div className="text-center my-4">
         <Picture />
       </div>
-      <AlertBox
-        translate={store.firstDictionaryItem.translation}
-        success={store.isSuccess}
-        error={store.errorMessage}
-      />
-      <QuestionForm
-        disabled={isFormDisabled}
-        onSubmit={handleSubmit}
-        onNext={() => store.nextQuestion()}
-      />
+      <AlertBox />
+      {store.taskMode === 'translateToForms' && (
+        <QuestionForm
+          disabled={isFormDisabled}
+          onSubmit={handleSubmit}
+          onNext={() => store.nextQuestion()}
+        />
+      )}
+      {store.taskMode === 'missingForm' && (
+        <MissingForm
+          disabled={isFormDisabled}
+          onSubmit={handleSubmit}
+          onNext={() => store.nextQuestion()}
+        />
+      )}
     </>
   );
 };
