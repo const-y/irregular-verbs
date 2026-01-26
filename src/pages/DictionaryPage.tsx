@@ -1,6 +1,7 @@
 import { getDictionary } from '@/api/dictionary.api';
+import DictionaryTableRow from '@/components/DictionaryTableRow';
 import Preloader from '@/components/Preloader';
-import VerbProgress from '@/components/VerbProgress';
+import ToggleAllVerbs from '@/components/ToggleAllVerbs';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { loadProgress } from '@/storage/progress.storage';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +13,6 @@ const DictionaryPage: React.FC = () => {
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
   });
-
   const progressMap = useMemo(() => loadProgress(), []);
 
   if (isLoading) {
@@ -28,6 +28,9 @@ const DictionaryPage: React.FC = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>
+              <ToggleAllVerbs dictionary={data} />
+            </th>
             <th>#</th>
             <th>Infinitive</th>
             <th>Past Simple</th>
@@ -37,20 +40,14 @@ const DictionaryPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map(
-            ({ id, base, past, pastParticiple, translation }, index) => (
-              <tr key={id}>
-                <td>{index + 1}</td>
-                <td>{base}</td>
-                <td>{past}</td>
-                <td>{pastParticiple}</td>
-                <td>{translation}</td>
-                <td>
-                  <VerbProgress progress={progressMap[id]} />
-                </td>
-              </tr>
-            ),
-          )}
+          {data?.map((verb, index) => (
+            <DictionaryTableRow
+              key={verb.id}
+              index={index}
+              verb={verb}
+              progress={progressMap[verb.id]}
+            />
+          ))}
         </tbody>
       </Table>
     </div>

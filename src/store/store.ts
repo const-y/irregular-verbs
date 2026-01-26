@@ -6,6 +6,10 @@ import { type Verb } from '@/types/verb';
 import { getProgress, saveProgress } from '@/storage/progress.storage';
 import type { TaskMode } from '@/types/test';
 import { getRandomItem } from '@/utils/array';
+import {
+  loadDisabledVerbs,
+  saveDisabledVerbs,
+} from '@/storage/disabled-verbs.storage';
 
 export default class Store {
   dictionary: Verb[] = [];
@@ -16,12 +20,13 @@ export default class Store {
   activeTab: Tab = TABS.TEST;
   taskMode: TaskMode = 'translateToForms';
   getRandom: () => number;
+  disabledVerbs: Set<string> = new Set();
 
   constructor(getRandom: () => number) {
     makeAutoObservable(this);
     this.getRandom = getRandom;
 
-    this.shuffleDictionary();
+    this.loadDisabledVerbs();
   }
 
   get firstDictionaryItem() {
@@ -40,6 +45,37 @@ export default class Store {
     return this.taskMode === 'missingForm'
       ? 'Заполните пропуск'
       : this.firstDictionaryItem.translation;
+  }
+
+  loadDisabledVerbs() {
+    this.disabledVerbs = loadDisabledVerbs();
+  }
+
+  toggleVerb(id: string) {
+    if (this.disabledVerbs.has(id)) {
+      this.disabledVerbs.delete(id);
+    } else {
+      this.disabledVerbs.add(id);
+    }
+    saveDisabledVerbs(this.disabledVerbs);
+  }
+
+  enableAllVerbs() {
+    this.disabledVerbs.clear();
+    saveDisabledVerbs(this.disabledVerbs);
+  }
+
+  disableVerbs(dictionary: Verb[]) {
+    this.disabledVerbs = new Set(dictionary.map(({ id }) => id));
+    saveDisabledVerbs(this.disabledVerbs);
+  }
+
+  isVerbDisabled(id: string) {
+    return this.disabledVerbs.has(id);
+  }
+
+  get isAllVerbsEnabled() {
+    return this.disabledVerbs.size === 0;
   }
 
   isAnswerCorrect(answer: string) {
@@ -127,7 +163,10 @@ export default class Store {
   }
 
   setDictionary(dictionary: Verb[]) {
-    this.dictionary = dictionary;
-    this.initialLength = dictionary.length;
+    const enabledVerbs = dictionary.filter(
+      (verb) => !this.isVerbDisabled(verb.id),
+    );
+    this.dictionary = enabledVerbs;
+    this.initialLength = enabledVerbs.length;
   }
 }
