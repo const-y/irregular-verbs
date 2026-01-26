@@ -5,5 +5,5 @@ export function getRandomTaskMode(
   getRandom: () => number = Math.random,
 ): TaskMode {
   const modes: TaskMode[] = ['translateToForms', 'missingForm'];
-  return getRandomItem(modes, getRandom) as TaskMode;
+  return getRandomItem(modes, getRandom);
 }
