@@ -15,9 +15,10 @@ describe('QuestionsPage', () => {
 
   it('отображает сообщение, если нет слов для повторения', async () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue([]);
-    const page = await render(<QuestionsPage />);
+    const screen = await render(<QuestionsPage />);
+    await userEvent.click(screen.getByRole('button', { name: /начать тест/i }));
 
-    const noWordsMessage = page.getByText(/нет слов для повторения/i);
+    const noWordsMessage = screen.getByText(/нет слов для повторения/i);
 
     await expect.element(noWordsMessage).toBeInTheDocument();
   });
@@ -26,19 +27,19 @@ describe('QuestionsPage', () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue(verbsStub(3));
     const mockStore = new Store(() => 0);
 
-    const page = await render(<QuestionsPage />, { store: mockStore });
+    const screen = await render(<QuestionsPage />, { store: mockStore });
 
-    const startButton = page.getByRole('button', {
-      name: 'Начать тест',
+    const startButton = screen.getByRole('button', {
+      name: /начать тест/i,
     });
 
     await userEvent.click(startButton);
 
-    const progress = page.getByTestId('progress');
-    const alertBox = page.getByTestId('alert-box');
+    const progress = screen.getByTestId('progress');
+    const alertBox = screen.getByTestId('alert-box');
 
-    expect(progress).toBeInTheDocument();
-    expect(alertBox).toBeInTheDocument();
+    await expect.element(progress).toBeInTheDocument();
+    await expect.element(alertBox).toBeInTheDocument();
   });
 
   it('отправляет ответ в QuestionForm и вызывает store.checkAnswer', async () => {
