@@ -10,6 +10,7 @@ import {
   loadDisabledVerbs,
   saveDisabledVerbs,
 } from '@/storage/disabled-verbs.storage';
+import { getRandomTaskMode } from '@/utils/taskMode.utils';
 
 export default class Store {
   dictionary: Verb[] = [];
@@ -168,5 +169,14 @@ export default class Store {
     );
     this.dictionary = enabledVerbs;
     this.initialLength = enabledVerbs.length;
+  }
+
+  resetAndRestart(dictionary: Verb[]) {
+    this.dictionary = dictionary;
+    this.shuffleDictionary();
+
+    this.taskMode = getRandomTaskMode(this.getRandom);
+    this.isTestingMode = true;
+    this.setActiveTab('test');
   }
 }

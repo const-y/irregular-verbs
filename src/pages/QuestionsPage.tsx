@@ -1,54 +1,67 @@
-import isEmpty from 'lodash/isEmpty';
-import { X } from 'lucide-react';
-import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { getDictionary } from '@/api/dictionary.api';
 import AlertBox from '@/components/AlertBox';
+import MissingForm from '@/components/MissingForm';
+import NoQuestions from '@/components/NoQuestions';
 import Picture from '@/components/Picture';
+import Preloader from '@/components/Preloader';
 import Progress from '@/components/Progress';
 import QuestionForm from '@/components/QuestionForm';
-import { useStoreContext } from '@/context/storeContext';
-import Preloader from '@/components/Preloader';
 import { QUERY_KEYS } from '@/constants/queryKeys';
-import { getDictionary } from '@/api/dictionary.api';
+import { useStoreContext } from '@/context/storeContext';
 import { useQuery } from '@tanstack/react-query';
-import MissingForm from '@/components/MissingForm';
+import { X } from 'lucide-react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { Button } from 'react-bootstrap';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();
-  const query = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
   });
 
-  useEffect(() => {
-    if (query.data) {
-      store.setDictionary(query.data);
-      store.shuffleDictionary();
-    }
-  }, [store, query.data]);
-
-  if (query.isLoading) {
+  if (isLoading) {
     return <Preloader />;
   }
 
-  if (isEmpty(store.firstDictionaryItem)) {
-    return <div>Нет слов для повторения</div>;
-  }
+  const isFormDisabled = store.isSuccess || !!store.errorMessage;
+
+  const handleReviewDictionary = () => {
+    store.setActiveTab('dictionary');
+    store.setIsTestingMode(false);
+  };
+
+  const handleSubmit = (answer: string) => store.checkAnswer(answer);
+
+  const handleStartTest = () => {
+    store.setDictionary(data || []);
+    store.shuffleDictionary();
+    store.setIsTestingMode(true);
+  };
+
+  const handleStopTest = () => {
+    store.setIsTestingMode(false);
+  };
 
   if (!store.isTestingMode) {
     return (
       <div className="text-center my-5">
-        <Button onClick={() => store.setIsTestingMode(true)} size="lg">
+        <Button onClick={handleStartTest} size="lg">
           Начать тест
         </Button>
       </div>
     );
   }
 
-  const handleSubmit = (answer: string) => store.checkAnswer(answer);
-
-  const isFormDisabled = store.isSuccess || !!store.errorMessage;
+  if (store.dictionary.length === 0) {
+    return (
+      <NoQuestions
+        onReviewDictionary={handleReviewDictionary}
+        onRetry={handleStartTest}
+      />
+    );
+  }
 
   return (
     <>
@@ -56,7 +69,7 @@ const QuestionsPage: React.FC = () => {
         <div className="w-100">
           <Progress />
         </div>
-        <Button onClick={() => store.setIsTestingMode(false)} variant="link">
+        <Button onClick={handleStopTest} variant="link">
           <X />
         </Button>
       </div>
