@@ -9,10 +9,10 @@ import QuestionForm from '@/components/QuestionForm';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { useStoreContext } from '@/context/storeContext';
 import { useQuery } from '@tanstack/react-query';
-import { X } from 'lucide-react';
+import { X, Info } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 
 const QuestionsPage: React.FC = () => {
   const store = useStoreContext();
@@ -44,10 +44,54 @@ const QuestionsPage: React.FC = () => {
     store.setIsTestingMode(false);
   };
 
+  const popover = (
+    <Popover>
+      <Popover.Header as="h3">Ваш тест — ваши правила</Popover.Header>
+      <Popover.Body>
+        Хотите меньше слов? Или только сложные? Заходите в "Словарь" и
+        настройте, какие глаголы будут в повторении.
+        <Button variant="link" onClick={handleReviewDictionary}>
+          Перейти в словарь
+        </Button>
+      </Popover.Body>
+    </Popover>
+  );
+
   if (!store.isTestingMode) {
+    const loadedCount = data?.length ?? 0;
+    const selectedVerbsCount = Math.max(
+      loadedCount - store.disabledVerbs.size,
+      0,
+    );
+
     return (
       <div className="text-center my-5">
-        <Button onClick={handleStartTest} size="lg">
+        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🚀</div>
+        <h2>Готов к повторению?</h2>
+        <p className="text-muted">
+          Выбрано слов {selectedVerbsCount}
+          <OverlayTrigger
+            trigger="click"
+            placement="right"
+            overlay={popover}
+            rootClose
+          >
+            <Button
+              variant="link"
+              className="p-0 ms-1 d-inline-flex align-items-center"
+              aria-label="Подробнее"
+              style={{ lineHeight: 1 }}
+            >
+              <Info size={20} />
+            </Button>
+          </OverlayTrigger>
+        </p>
+        <Button
+          size="lg"
+          variant="primary"
+          className="px-4 py-3 fs-5"
+          onClick={handleStartTest}
+        >
           Начать тест
         </Button>
       </div>
