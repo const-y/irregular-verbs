@@ -8,13 +8,13 @@ ci:
 lint:
 	npx eslint .
 
-test-watch:
+test:
 	yarn test
 
 build:
 	yarn build
 
-test:
+coverage:
 	yarn test:coverage
 
 dev:
