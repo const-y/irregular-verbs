@@ -18,5 +18,10 @@ export default defineConfig({
       instances: [{ browser: 'chromium' }],
     },
     setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      include: ['src/**/*.{ts,tsx}'],
+      reporter: ['text', 'lcov'],
+      exclude: ['__stubs__', '**/*.d.ts', 'types/**/*.{ts,tsx}'],
+    },
   },
 });

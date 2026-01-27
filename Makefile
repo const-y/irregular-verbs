@@ -14,8 +14,8 @@ test:
 build:
 	yarn build
 
-test-coverage:
-	yarn test --coverage .
+coverage:
+	yarn test:coverage
 
 dev:
 	yarn dev
