@@ -1,29 +1,29 @@
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import { observer } from 'mobx-react-lite';
 import type { FC } from 'react';
 import { Alert } from 'react-bootstrap';
 
 const AlertBox: FC = () => {
-  const store = useStoreContext();
+  const { testStore } = useStore();
 
-  if (store.isSuccess) {
+  if (testStore.isSuccess) {
     return (
       <Alert data-testid="alert-box" variant="success">
         Верно!
       </Alert>
     );
   }
-  if (store.errorMessage) {
+  if (testStore.errorMessage) {
     return (
       <Alert data-testid="alert-box" variant="danger">
-        {store.errorMessage}
+        {testStore.errorMessage}
       </Alert>
     );
   }
 
   return (
     <Alert data-testid="alert-box" variant="primary">
-      {store.taskDescription}
+      {testStore.taskDescription}
     </Alert>
   );
 };

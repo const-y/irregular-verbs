@@ -2,13 +2,13 @@ import { render } from 'vitest-browser-react';
 import React, { type PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StoreContext } from '../context/storeContext';
-import Store from '../store/store';
+import { RootStore } from '@/store/RootStore';
 
 const queryClient = new QueryClient();
 
-const TestProvider: React.FC<PropsWithChildren<{ store?: Store }>> = ({
+const TestProvider: React.FC<PropsWithChildren<{ store?: RootStore }>> = ({
   children,
-  store = new Store(() => 0),
+  store = new RootStore(() => 0),
 }) => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -17,7 +17,10 @@ const TestProvider: React.FC<PropsWithChildren<{ store?: Store }>> = ({
   );
 };
 
-const customRender = (ui: React.ReactElement, options?: { store?: Store }) => {
+const customRender = (
+  ui: React.ReactElement,
+  options?: { store?: RootStore },
+) => {
   return render(ui, {
     wrapper: (props) => (
       <TestProvider store={options?.store}>{props.children}</TestProvider>

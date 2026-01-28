@@ -2,11 +2,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import QuestionsPage from './QuestionsPage';
 import { render } from '@/test/test-uitls';
-import Store from '@/store/store';
+import TestStore from '@/store/TestStore';
 import { verbsStub } from '@/api/__stubs__/dictionary.stub';
 import * as dictionaryApi from '@/api/dictionary.api';
+import { RootStore } from '@/store/RootStore';
 
 vi.mock('@/api/dictionary.api');
+
+const mockGetRandom = vi.fn(() => 0);
 
 describe('QuestionsPage', () => {
   beforeEach(() => {
@@ -25,7 +28,7 @@ describe('QuestionsPage', () => {
 
   it('отображает Progress и AlertBox', async () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue(verbsStub(3));
-    const mockStore = new Store(() => 0);
+    const mockStore = new RootStore(mockGetRandom);
 
     const screen = await render(<QuestionsPage />, { store: mockStore });
 
@@ -44,8 +47,8 @@ describe('QuestionsPage', () => {
 
   it('отправляет ответ в QuestionForm и вызывает store.checkAnswer', async () => {
     vi.mocked(dictionaryApi.getDictionary).mockResolvedValue(verbsStub(3));
-    const mockStore = new Store(() => 0);
-    const spyOnProcessAnswer = vi.spyOn(mockStore, 'checkAnswer');
+    const mockStore = new RootStore(mockGetRandom);
+    const spyOnProcessAnswer = vi.spyOn(mockStore.testStore, 'checkAnswer');
 
     const page = await render(<QuestionsPage />, { store: mockStore });
 

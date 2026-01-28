@@ -2,14 +2,15 @@ import { render } from 'vitest-browser-react';
 import QuestionForm from './QuestionForm';
 import noop from 'lodash/noop';
 import { StoreContext } from '@/context/storeContext';
-import Store from '@/store/store';
 import { vi, describe, expect, it, beforeEach } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { RootStore } from '@/store/RootStore';
 
 const mockSubmit = vi.fn();
+const mockGetRandom = vi.fn(() => 0);
 
 const renderQuestionForm = (disabled = false) => {
-  const mockStore = new Store(() => 0);
+  const mockStore = new RootStore(mockGetRandom);
   return render(
     <StoreContext.Provider value={mockStore}>
       <QuestionForm disabled={disabled} onSubmit={mockSubmit} onNext={noop} />
