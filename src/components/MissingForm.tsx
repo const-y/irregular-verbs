@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { Form, Table } from 'react-bootstrap';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import type { VerbForm } from '@/types/verb';
 import { getRandomItem } from '@/utils/array';
 import Actions from './Actions';
@@ -26,7 +26,7 @@ const MissingForm: React.FC<MissingFormProps> = ({
   onNext,
 }: MissingFormProps) => {
   const [answer, setAnswer] = useState('');
-  const { testStore: store } = useStoreContext();
+  const { testStore: store } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const [missingForm, setMissingForm] = useState(

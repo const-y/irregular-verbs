@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { Form } from 'react-bootstrap';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import Actions from './Actions';
 
 interface QuestionFormProps {
@@ -22,7 +22,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   onNext,
 }: QuestionFormProps) => {
   const [answer, setAnswer] = useState('');
-  const { testStore: store } = useStoreContext();
+  const { testStore } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -38,12 +38,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   };
 
   useEffect(() => {
-    if (store.isAnswered) {
+    if (testStore.isAnswered) {
       nextButtonRef.current?.focus();
     } else {
       inputRef.current?.focus();
     }
-  }, [store.isAnswered]);
+  }, [testStore.isAnswered]);
 
   const handleAnswerChange: ChangeEventHandler<HTMLInputElement> = (event) =>
     setAnswer(event.target.value);

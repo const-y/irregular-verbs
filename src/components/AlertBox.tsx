@@ -1,10 +1,10 @@
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import { observer } from 'mobx-react-lite';
 import type { FC } from 'react';
 import { Alert } from 'react-bootstrap';
 
 const AlertBox: FC = () => {
-  const { testStore } = useStoreContext();
+  const { testStore } = useStore();
 
   if (testStore.isSuccess) {
     return (

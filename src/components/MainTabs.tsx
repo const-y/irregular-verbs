@@ -1,21 +1,21 @@
 import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import QuestionsPage from '@/pages/QuestionsPage';
 import DictionaryPage from '@/pages/DictionaryPage';
 import { isTab, TABS } from '@/constants/tabs';
 
 const MainTabs: React.FC = () => {
-  const { testStore: store } = useStoreContext();
+  const { uiStore, testStore } = useStore();
 
   const handleSelect = (key: string | null) => {
-    if (isTab(key)) store.setActiveTab(key);
+    if (isTab(key)) uiStore.setActiveTab(key);
   };
 
   return (
     <Tabs
-      activeKey={store.activeTab}
+      activeKey={uiStore.activeTab}
       onSelect={handleSelect}
       className="mb-3"
       mountOnEnter
@@ -27,7 +27,7 @@ const MainTabs: React.FC = () => {
       <Tab
         eventKey={TABS.DICTIONARY}
         title="Словарь"
-        disabled={store.isTestingMode}
+        disabled={testStore.isTestingMode}
       >
         <DictionaryPage />
       </Tab>

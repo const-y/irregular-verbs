@@ -1,4 +1,4 @@
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import { observer } from 'mobx-react-lite';
 import type { FC } from 'react';
 import { Button } from 'react-bootstrap';
@@ -16,11 +16,11 @@ const Actions: FC<ActionsProps> = ({
   isSubmitDisabled,
   onSkipClick,
 }) => {
-  const { testStore: store } = useStoreContext();
+  const { testStore } = useStore();
 
   return (
     <div className="text-center m-3">
-      {store.isAnswered ? (
+      {testStore.isAnswered ? (
         <Button size="lg" onClick={onNextClick} ref={nextButtonRef}>
           Далее
         </Button>

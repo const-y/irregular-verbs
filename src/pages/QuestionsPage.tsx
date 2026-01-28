@@ -7,7 +7,7 @@ import Preloader from '@/components/Preloader';
 import Progress from '@/components/Progress';
 import QuestionForm from '@/components/QuestionForm';
 import { QUERY_KEYS } from '@/constants/queryKeys';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import { useQuery } from '@tanstack/react-query';
 import { X, Info } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
@@ -15,7 +15,7 @@ import React from 'react';
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 
 const QuestionsPage: React.FC = () => {
-  const { testStore } = useStoreContext();
+  const { testStore, uiStore } = useStore();
   const { data, isLoading } = useQuery({
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
@@ -28,7 +28,7 @@ const QuestionsPage: React.FC = () => {
   const isFormDisabled = testStore.isSuccess || !!testStore.errorMessage;
 
   const handleReviewDictionary = () => {
-    testStore.setActiveTab('dictionary');
+    uiStore.setActiveTab('dictionary');
     testStore.setIsTestingMode(false);
   };
 

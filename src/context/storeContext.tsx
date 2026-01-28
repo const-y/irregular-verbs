@@ -8,19 +8,19 @@ interface StoreContextProviderProps {
 export const StoreContext = createContext<RootStore | null>(null);
 
 export function StoreContextProvider({ children }: StoreContextProviderProps) {
-  const store = useMemo(() => new RootStore(), []);
+  const store = useMemo(() => new RootStore(() => Math.random()), []);
 
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );
 }
 
-export function useStoreContext() {
+export function useStore() {
   const store = useContext(StoreContext);
 
   if (store === null) {
     throw new Error(
-      'To use useStoreContext hook you have to wrap the component to the store context provider',
+      'To use useStore hook you have to wrap the component to the store context provider',
     );
   }
 

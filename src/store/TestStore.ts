@@ -11,6 +11,7 @@ import {
   saveDisabledVerbs,
 } from '@/storage/disabled-verbs.storage';
 import { getRandomTaskMode } from '@/utils/taskMode.utils';
+import type UIStore from './UIStore';
 
 export default class TestStore {
   dictionary: Verb[] = [];
@@ -18,20 +19,28 @@ export default class TestStore {
   isSuccess = false;
   errorMessage = '';
   isTestingMode = false;
-  activeTab: Tab = TABS.TEST;
   taskMode: TaskMode = 'translateToForms';
   getRandom: () => number;
   disabledVerbs: Set<string> = new Set();
+  uiStore: UIStore;
 
-  constructor(getRandom: () => number) {
+  constructor(getRandom: () => number, uiStore: UIStore) {
     makeAutoObservable(this);
     this.getRandom = getRandom;
+    this.uiStore = uiStore;
 
     this.loadDisabledVerbs();
   }
 
+  get activeVerb(): Verb | null {
+    return this.dictionary[0] ?? null;
+  }
+
+  /**
+   * @deprecated use `activeVerb`
+   */
   get firstDictionaryItem() {
-    return this.dictionary[0] || [];
+    return this.dictionary[0] ?? {};
   }
 
   get percents() {
@@ -89,7 +98,7 @@ export default class TestStore {
   setIsTestingMode(isTestingMode: boolean) {
     this.isTestingMode = isTestingMode;
     if (isTestingMode) {
-      this.activeTab = TABS.TEST;
+      this.uiStore.setActiveTab(TABS.TEST);
     } else {
       this.initialLength = 1;
       this.isSuccess = false;
@@ -159,10 +168,6 @@ export default class TestStore {
     );
   }
 
-  setActiveTab(activeTab: Tab) {
-    this.activeTab = activeTab;
-  }
-
   setDictionary(dictionary: Verb[]) {
     const enabledVerbs = dictionary.filter(
       (verb) => !this.isVerbDisabled(verb.id),
@@ -177,6 +182,6 @@ export default class TestStore {
 
     this.taskMode = getRandomTaskMode(this.getRandom);
     this.isTestingMode = true;
-    this.setActiveTab('test');
+    this.uiStore.setActiveTab('test');
   }
 }

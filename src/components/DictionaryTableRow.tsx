@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import VerbProgress from './VerbProgress';
 import type { FC } from 'react';
 import type { Progress } from '@/storage/progress.storage';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import { observer } from 'mobx-react-lite';
 import { computed } from 'mobx';
 
@@ -20,7 +20,7 @@ const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
   progress,
 }) => {
   const { id, base, past, pastParticiple, translation } = verb;
-  const { testStore: store } = useStoreContext();
+  const { testStore: store } = useStore();
   const isDisabled = computed(() => store.isVerbDisabled(id)).get();
 
   const handleCheck = () => {

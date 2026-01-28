@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Form } from 'react-bootstrap';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import type { Verb } from '@/types/verb';
 
 interface ToggleAllVerbsProps {
@@ -9,14 +9,14 @@ interface ToggleAllVerbsProps {
 }
 
 const ToggleAllVerbs: FC<ToggleAllVerbsProps> = ({ dictionary = [] }) => {
-  const { testStore: store } = useStoreContext();
-  const isAllEnabled = store.isAllVerbsEnabled;
+  const { testStore } = useStore();
+  const isAllEnabled = testStore.isAllVerbsEnabled;
 
   const handleCheck = () => {
     if (isAllEnabled) {
-      store.disableVerbs(dictionary);
+      testStore.disableVerbs(dictionary);
     } else {
-      store.enableAllVerbs();
+      testStore.enableAllVerbs();
     }
   };
 
