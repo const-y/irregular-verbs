@@ -20,7 +20,7 @@ const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
   progress,
 }) => {
   const { id, base, past, pastParticiple, translation } = verb;
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
   const isDisabled = computed(() => store.isVerbDisabled(id)).get();
 
   const handleCheck = () => {

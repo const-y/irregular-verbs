@@ -26,7 +26,7 @@ const MissingForm: React.FC<MissingFormProps> = ({
   onNext,
 }: MissingFormProps) => {
   const [answer, setAnswer] = useState('');
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const [missingForm, setMissingForm] = useState(

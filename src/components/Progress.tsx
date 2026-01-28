@@ -4,7 +4,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useStoreContext } from '@/context/storeContext';
 
 const Progress: React.FC = () => {
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
 
   return (
     <ProgressBar

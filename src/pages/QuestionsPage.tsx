@@ -15,7 +15,7 @@ import React from 'react';
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 
 const QuestionsPage: React.FC = () => {
-  const store = useStoreContext();
+  const { testStore } = useStoreContext();
   const { data, isLoading } = useQuery({
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
@@ -25,23 +25,23 @@ const QuestionsPage: React.FC = () => {
     return <Preloader />;
   }
 
-  const isFormDisabled = store.isSuccess || !!store.errorMessage;
+  const isFormDisabled = testStore.isSuccess || !!testStore.errorMessage;
 
   const handleReviewDictionary = () => {
-    store.setActiveTab('dictionary');
-    store.setIsTestingMode(false);
+    testStore.setActiveTab('dictionary');
+    testStore.setIsTestingMode(false);
   };
 
-  const handleSubmit = (answer: string) => store.checkAnswer(answer);
+  const handleSubmit = (answer: string) => testStore.checkAnswer(answer);
 
   const handleStartTest = () => {
-    store.setDictionary(data || []);
-    store.shuffleDictionary();
-    store.setIsTestingMode(true);
+    testStore.setDictionary(data || []);
+    testStore.shuffleDictionary();
+    testStore.setIsTestingMode(true);
   };
 
   const handleStopTest = () => {
-    store.setIsTestingMode(false);
+    testStore.setIsTestingMode(false);
   };
 
   const popover = (
@@ -57,10 +57,10 @@ const QuestionsPage: React.FC = () => {
     </Popover>
   );
 
-  if (!store.isTestingMode) {
+  if (!testStore.isTestingMode) {
     const loadedCount = data?.length ?? 0;
     const selectedVerbsCount = Math.max(
-      loadedCount - store.disabledVerbs.size,
+      loadedCount - testStore.disabledVerbs.size,
       0,
     );
 
@@ -98,7 +98,7 @@ const QuestionsPage: React.FC = () => {
     );
   }
 
-  if (store.dictionary.length === 0) {
+  if (testStore.dictionary.length === 0) {
     return (
       <NoQuestions
         onReviewDictionary={handleReviewDictionary}
@@ -121,18 +121,18 @@ const QuestionsPage: React.FC = () => {
         <Picture />
       </div>
       <AlertBox />
-      {store.taskMode === 'translateToForms' && (
+      {testStore.taskMode === 'translateToForms' && (
         <QuestionForm
           disabled={isFormDisabled}
           onSubmit={handleSubmit}
-          onNext={() => store.nextQuestion()}
+          onNext={() => testStore.nextQuestion()}
         />
       )}
-      {store.taskMode === 'missingForm' && (
+      {testStore.taskMode === 'missingForm' && (
         <MissingForm
           disabled={isFormDisabled}
           onSubmit={handleSubmit}
-          onNext={() => store.nextQuestion()}
+          onNext={() => testStore.nextQuestion()}
         />
       )}
     </>

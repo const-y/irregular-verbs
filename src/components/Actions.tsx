@@ -16,7 +16,7 @@ const Actions: FC<ActionsProps> = ({
   isSubmitDisabled,
   onSkipClick,
 }) => {
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
 
   return (
     <div className="text-center m-3">

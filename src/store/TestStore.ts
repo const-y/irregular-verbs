@@ -12,7 +12,7 @@ import {
 } from '@/storage/disabled-verbs.storage';
 import { getRandomTaskMode } from '@/utils/taskMode.utils';
 
-export default class Store {
+export default class TestStore {
   dictionary: Verb[] = [];
   initialLength = 1;
   isSuccess = false;

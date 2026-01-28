@@ -9,7 +9,7 @@ interface ToggleAllVerbsProps {
 }
 
 const ToggleAllVerbs: FC<ToggleAllVerbsProps> = ({ dictionary = [] }) => {
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
   const isAllEnabled = store.isAllVerbsEnabled;
 
   const handleCheck = () => {

@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap';
 import { useStoreContext } from '@/context/storeContext';
 
 const Picture: React.FC = () => {
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
 
   const addImageFallback = (event: React.SyntheticEvent<HTMLImageElement>) => {
     event.currentTarget.src = `${import.meta.env.BASE_URL}/images/uk-flag.svg`;

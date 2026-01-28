@@ -22,7 +22,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
   onNext,
 }: QuestionFormProps) => {
   const [answer, setAnswer] = useState('');
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
 

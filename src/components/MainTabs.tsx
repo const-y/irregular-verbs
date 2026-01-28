@@ -7,7 +7,7 @@ import DictionaryPage from '@/pages/DictionaryPage';
 import { isTab, TABS } from '@/constants/tabs';
 
 const MainTabs: React.FC = () => {
-  const store = useStoreContext();
+  const { testStore: store } = useStoreContext();
 
   const handleSelect = (key: string | null) => {
     if (isTab(key)) store.setActiveTab(key);
