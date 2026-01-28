@@ -7,45 +7,31 @@ import { getRandomTaskMode } from '@/utils/taskMode.utils';
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import type UIStore from './UIStore';
-import type SettingsStore from './SettingsStore';
+import type { RootStore } from './RootStore';
 
 export default class TestStore {
+  rootStore: RootStore;
   dictionary: Verb[] = [];
   initialLength = 1;
   isSuccess = false;
   errorMessage = '';
   isTestingMode = false;
   taskMode: TaskMode = 'translateToForms';
-  getRandom: () => number;
-  uiStore: UIStore;
-  settingsStore: SettingsStore;
 
-  constructor(
-    getRandom: () => number,
-    uiStore: UIStore,
-    settingsStore: SettingsStore,
-  ) {
-    this.getRandom = getRandom;
-    this.uiStore = uiStore;
-    this.settingsStore = settingsStore;
-
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   get activeVerb(): Verb | null {
     return this.dictionary[0] ?? null;
   }
 
-  /**
-   * @deprecated use `activeVerb`
-   */
-  get firstDictionaryItem() {
-    return this.dictionary[0] ?? {};
-  }
-
-  get percents() {
-    return 100 - (this.dictionary.length / this.initialLength) * 100;
+  get completionPercent() {
+    if (this.initialLength === 0) return 0;
+    return (
+      ((this.initialLength - this.dictionary.length) / this.initialLength) * 100
+    );
   }
 
   get isAnswered(): boolean {
@@ -59,7 +45,8 @@ export default class TestStore {
   }
 
   isAnswerCorrect(answer: string) {
-    const { base, past, pastParticiple } = this.firstDictionaryItem;
+    if (!this.activeVerb) return false;
+    const { base, past, pastParticiple } = this.activeVerb;
     const answerSampler = base + ' ' + past + ' ' + pastParticiple;
 
     return answer.toLowerCase() === answerSampler;
@@ -68,7 +55,7 @@ export default class TestStore {
   setIsTestingMode(isTestingMode: boolean) {
     this.isTestingMode = isTestingMode;
     if (isTestingMode) {
-      this.uiStore.setActiveTab(TABS.TEST);
+      this.rootStore.uiStore.setActiveTab(TABS.TEST);
     } else {
       this.initialLength = 1;
       this.isSuccess = false;
@@ -101,9 +88,9 @@ export default class TestStore {
   }
 
   checkAnswer(answer: string) {
-    const { id, base, past, pastParticiple, translation } =
-      this.firstDictionaryItem;
+    if (!this.activeVerb) return;
 
+    const { id, base, past, pastParticiple, translation } = this.activeVerb;
     const progress = getProgress(id);
 
     this.hideSuccess();
@@ -132,15 +119,14 @@ export default class TestStore {
       this.shuffleDictionary();
     }
 
-    this.taskMode = getRandomItem(
-      ['translateToForms', 'missingForm'],
-      this.getRandom,
+    this.taskMode = getRandomItem(['translateToForms', 'missingForm'], () =>
+      this.rootStore.getRandom(),
     );
   }
 
   setDictionary(dictionary: Verb[]) {
     const enabledVerbs = dictionary.filter(
-      (verb) => !this.settingsStore.isVerbDisabled(verb.id),
+      (verb) => !this.rootStore.settingsStore.isVerbDisabled(verb.id),
     );
     this.dictionary = enabledVerbs;
     this.initialLength = enabledVerbs.length;
@@ -150,8 +136,8 @@ export default class TestStore {
     this.dictionary = dictionary;
     this.shuffleDictionary();
 
-    this.taskMode = getRandomTaskMode(this.getRandom);
+    this.taskMode = getRandomTaskMode(this.rootStore.getRandom);
     this.isTestingMode = true;
-    this.uiStore.setActiveTab('test');
+    this.rootStore.uiStore.setActiveTab('test');
   }
 }

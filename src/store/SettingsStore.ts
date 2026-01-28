@@ -4,13 +4,15 @@ import {
 } from '@/storage/disabled-verbs.storage';
 import { type Verb } from '@/types/verb';
 import { makeAutoObservable } from 'mobx';
+import type { RootStore } from './RootStore';
 
 export default class SettingsStore {
   disabledVerbs: Set<string> = new Set();
+  rootStore: RootStore;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
     makeAutoObservable(this);
-
+    this.rootStore = rootStore;
     this.loadDisabledVerbs();
   }
 

@@ -11,7 +11,7 @@ const Progress: React.FC = () => {
       data-testid="progress"
       striped
       variant="success"
-      now={testStore.percents}
+      now={testStore.completionPercent}
     />
   );
 };

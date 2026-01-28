@@ -6,10 +6,12 @@ export class RootStore {
   testStore: TestStore;
   uiStore: UIStore;
   settingsStore: SettingsStore;
+  getRandom: () => number;
 
   constructor(getRandom: () => number) {
-    this.uiStore = new UIStore();
-    this.settingsStore = new SettingsStore();
-    this.testStore = new TestStore(getRandom, this.uiStore, this.settingsStore);
+    this.getRandom = getRandom;
+    this.uiStore = new UIStore(this);
+    this.settingsStore = new SettingsStore(this);
+    this.testStore = new TestStore(this);
   }
 }
