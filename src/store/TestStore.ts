@@ -1,17 +1,14 @@
+import { TABS } from '@/constants/tabs';
+import { getProgress, saveProgress } from '@/storage/progress.storage';
+import type { TaskMode } from '@/types/test';
+import { type Verb } from '@/types/verb';
+import { getRandomItem } from '@/utils/array';
+import { getRandomTaskMode } from '@/utils/taskMode.utils';
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
-import { type Tab, TABS } from '@/constants/tabs';
-import { type Verb } from '@/types/verb';
-import { getProgress, saveProgress } from '@/storage/progress.storage';
-import type { TaskMode } from '@/types/test';
-import { getRandomItem } from '@/utils/array';
-import {
-  loadDisabledVerbs,
-  saveDisabledVerbs,
-} from '@/storage/disabled-verbs.storage';
-import { getRandomTaskMode } from '@/utils/taskMode.utils';
 import type UIStore from './UIStore';
+import type SettingsStore from './SettingsStore';
 
 export default class TestStore {
   dictionary: Verb[] = [];
@@ -21,15 +18,19 @@ export default class TestStore {
   isTestingMode = false;
   taskMode: TaskMode = 'translateToForms';
   getRandom: () => number;
-  disabledVerbs: Set<string> = new Set();
   uiStore: UIStore;
+  settingsStore: SettingsStore;
 
-  constructor(getRandom: () => number, uiStore: UIStore) {
-    makeAutoObservable(this);
+  constructor(
+    getRandom: () => number,
+    uiStore: UIStore,
+    settingsStore: SettingsStore,
+  ) {
     this.getRandom = getRandom;
     this.uiStore = uiStore;
+    this.settingsStore = settingsStore;
 
-    this.loadDisabledVerbs();
+    makeAutoObservable(this);
   }
 
   get activeVerb(): Verb | null {
@@ -54,38 +55,7 @@ export default class TestStore {
   get taskDescription() {
     return this.taskMode === 'missingForm'
       ? 'Заполните пропуск'
-      : this.firstDictionaryItem.translation;
-  }
-
-  loadDisabledVerbs() {
-    this.disabledVerbs = loadDisabledVerbs();
-  }
-
-  toggleVerb(id: string) {
-    if (this.disabledVerbs.has(id)) {
-      this.disabledVerbs.delete(id);
-    } else {
-      this.disabledVerbs.add(id);
-    }
-    saveDisabledVerbs(this.disabledVerbs);
-  }
-
-  enableAllVerbs() {
-    this.disabledVerbs.clear();
-    saveDisabledVerbs(this.disabledVerbs);
-  }
-
-  disableVerbs(dictionary: Verb[]) {
-    this.disabledVerbs = new Set(dictionary.map(({ id }) => id));
-    saveDisabledVerbs(this.disabledVerbs);
-  }
-
-  isVerbDisabled(id: string) {
-    return this.disabledVerbs.has(id);
-  }
-
-  get isAllVerbsEnabled() {
-    return this.disabledVerbs.size === 0;
+      : this.activeVerb?.translation;
   }
 
   isAnswerCorrect(answer: string) {
@@ -170,7 +140,7 @@ export default class TestStore {
 
   setDictionary(dictionary: Verb[]) {
     const enabledVerbs = dictionary.filter(
-      (verb) => !this.isVerbDisabled(verb.id),
+      (verb) => !this.settingsStore.isVerbDisabled(verb.id),
     );
     this.dictionary = enabledVerbs;
     this.initialLength = enabledVerbs.length;

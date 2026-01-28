@@ -9,13 +9,13 @@ import QuestionForm from '@/components/QuestionForm';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { useStore } from '@/context/storeContext';
 import { useQuery } from '@tanstack/react-query';
-import { X, Info } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import { type FC } from 'react';
 import { Button, OverlayTrigger, Popover } from 'react-bootstrap';
 
-const QuestionsPage: React.FC = () => {
-  const { testStore, uiStore } = useStore();
+const QuestionsPage: FC = () => {
+  const { testStore, uiStore, settingsStore } = useStore();
   const { data, isLoading } = useQuery({
     queryKey: QUERY_KEYS.dictionary,
     queryFn: getDictionary,
@@ -60,7 +60,7 @@ const QuestionsPage: React.FC = () => {
   if (!testStore.isTestingMode) {
     const loadedCount = data?.length ?? 0;
     const selectedVerbsCount = Math.max(
-      loadedCount - testStore.disabledVerbs.size,
+      loadedCount - settingsStore.disabledVerbs.size,
       0,
     );
 

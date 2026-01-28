@@ -9,14 +9,14 @@ interface ToggleAllVerbsProps {
 }
 
 const ToggleAllVerbs: FC<ToggleAllVerbsProps> = ({ dictionary = [] }) => {
-  const { testStore } = useStore();
-  const isAllEnabled = testStore.isAllVerbsEnabled;
+  const { settingsStore } = useStore();
+  const isAllEnabled = settingsStore.isAllVerbsEnabled;
 
   const handleCheck = () => {
     if (isAllEnabled) {
-      testStore.disableVerbs(dictionary);
+      settingsStore.disableVerbs(dictionary);
     } else {
-      testStore.enableAllVerbs();
+      settingsStore.enableAllVerbs();
     }
   };
 
