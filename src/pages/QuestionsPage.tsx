@@ -44,6 +44,10 @@ const QuestionsPage: FC = () => {
     testStore.setIsTestingMode(false);
   };
 
+  const handleNextQuestion = () => {
+    testStore.nextQuestion();
+  };
+
   const popover = (
     <Popover>
       <Popover.Header as="h3">Ваш тест — ваши правила</Popover.Header>
@@ -125,14 +129,14 @@ const QuestionsPage: FC = () => {
         <QuestionForm
           disabled={isFormDisabled}
           onSubmit={handleSubmit}
-          onNext={() => testStore.nextQuestion()}
+          onNext={handleNextQuestion}
         />
       )}
       {testStore.taskMode === 'missingForm' && (
         <MissingForm
           disabled={isFormDisabled}
           onSubmit={handleSubmit}
-          onNext={() => testStore.nextQuestion()}
+          onNext={handleNextQuestion}
         />
       )}
     </>
