@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { Form, Table } from 'react-bootstrap';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 import type { VerbForm } from '@/types/verb';
 import { getRandomItem } from '@/utils/array';
 import Actions from './Actions';
@@ -26,7 +26,7 @@ const MissingForm: React.FC<MissingFormProps> = ({
   onNext,
 }: MissingFormProps) => {
   const [answer, setAnswer] = useState('');
-  const store = useStoreContext();
+  const { testStore: store } = useStore();
   const inputRef = useRef<HTMLInputElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const [missingForm, setMissingForm] = useState(
@@ -35,14 +35,12 @@ const MissingForm: React.FC<MissingFormProps> = ({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const base =
-      missingForm === 'base' ? answer : store.firstDictionaryItem.base;
-    const past =
-      missingForm === 'past' ? answer : store.firstDictionaryItem.past;
+    const base = missingForm === 'base' ? answer : store.activeVerb?.base;
+    const past = missingForm === 'past' ? answer : store.activeVerb?.past;
     const pastParticiple =
       missingForm === 'pastParticiple'
         ? answer
-        : store.firstDictionaryItem.pastParticiple;
+        : store.activeVerb?.pastParticiple;
 
     onSubmit(`${base} ${past} ${pastParticiple}`);
   };
@@ -53,8 +51,8 @@ const MissingForm: React.FC<MissingFormProps> = ({
   };
 
   useEffect(() => {
-    setMissingForm(getRandomItem(VERB_FORMS, Math.random));
-  }, [store.firstDictionaryItem]);
+    setMissingForm(getRandomItem(VERB_FORMS, () => Math.random()));
+  }, [store.activeVerb]);
 
   useEffect(() => {
     if (store.isAnswered) {
@@ -90,7 +88,7 @@ const MissingForm: React.FC<MissingFormProps> = ({
       );
     }
 
-    return <strong>{store.firstDictionaryItem[form]}</strong>;
+    return <strong>{store.activeVerb?.[form]}</strong>;
   };
 
   const columnWidth = 100 / 3;

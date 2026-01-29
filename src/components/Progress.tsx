@@ -1,17 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import { useStoreContext } from '@/context/storeContext';
+import { useStore } from '@/context/storeContext';
 
 const Progress: React.FC = () => {
-  const store = useStoreContext();
+  const { testStore } = useStore();
 
   return (
     <ProgressBar
       data-testid="progress"
       striped
       variant="success"
-      now={store.percents}
+      now={testStore.completionPercent}
     />
   );
 };
