@@ -1,12 +1,12 @@
+import { useStore } from '@/context/storeContext';
+import type { Progress } from '@/storage/progress.storage';
 import type { Verb } from '@/types/verb';
 import cn from 'classnames';
-import { Form } from 'react-bootstrap';
-import VerbProgress from './VerbProgress';
-import type { FC } from 'react';
-import type { Progress } from '@/storage/progress.storage';
-import { useStore } from '@/context/storeContext';
-import { observer } from 'mobx-react-lite';
 import { computed } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import type { FC } from 'react';
+import Checkbox from './ui/Checkbox';
+import VerbProgress from './VerbProgress';
 
 interface DictionaryTableRowProps {
   index: number;
@@ -30,7 +30,7 @@ const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
   return (
     <tr className={cn({ 'opacity-50': isDisabled })}>
       <td>
-        <Form.Check name={id} checked={!isDisabled} onChange={handleCheck} />
+        <Checkbox name={id} checked={!isDisabled} onChange={handleCheck} />
       </td>
       <td>{index + 1}</td>
       <td>{base}</td>
