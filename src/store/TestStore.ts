@@ -3,7 +3,6 @@ import { getProgress, saveProgress } from '@/storage/progress.storage';
 import type { TaskMode } from '@/types/test';
 import { type Verb } from '@/types/verb';
 import { getRandomItem } from '@/utils/array';
-import { getRandomTaskMode } from '@/utils/taskMode.utils';
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
@@ -29,9 +28,12 @@ export default class TestStore {
 
   get completionPercent() {
     if (this.initialLength === 0) return 0;
-    return (
-      ((this.initialLength - this.dictionary.length) / this.initialLength) * 100
-    );
+
+    const percent =
+      ((this.initialLength - this.dictionary.length) / this.initialLength) *
+      100;
+
+    return Math.round(Math.min(Math.max(percent, 0), 100));
   }
 
   get isAnswered(): boolean {
@@ -130,14 +132,5 @@ export default class TestStore {
     );
     this.dictionary = enabledVerbs;
     this.initialLength = enabledVerbs.length;
-  }
-
-  resetAndRestart(dictionary: Verb[]) {
-    this.dictionary = dictionary;
-    this.shuffleDictionary();
-
-    this.taskMode = getRandomTaskMode(this.rootStore.getRandom);
-    this.isTestingMode = true;
-    this.rootStore.uiStore.setActiveTab('test');
   }
 }
