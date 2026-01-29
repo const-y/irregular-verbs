@@ -2,11 +2,11 @@ import { TABS } from '@/constants/tabs';
 import { getProgress, saveProgress } from '@/storage/progress.storage';
 import type { TaskMode } from '@/types/test';
 import { type Verb } from '@/types/verb';
-import { getRandomItem } from '@/utils/array';
 import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
 import type { RootStore } from './RootStore';
+import { getRandomTaskMode } from '@/utils/taskMode.utils';
 
 export default class TestStore {
   rootStore: RootStore;
@@ -121,9 +121,7 @@ export default class TestStore {
       this.shuffleDictionary();
     }
 
-    this.taskMode = getRandomItem(['translateToForms', 'missingForm'], () =>
-      this.rootStore.getRandom(),
-    );
+    this.taskMode = getRandomTaskMode(() => this.rootStore.getRandom());
   }
 
   setDictionary(dictionary: Verb[]) {
