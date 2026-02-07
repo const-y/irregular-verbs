@@ -2,7 +2,6 @@ import { TABS } from '@/constants/tabs';
 import { getProgress, saveProgress } from '@/storage/progress.storage';
 import type { TaskMode } from '@/types/test';
 import { type Verb } from '@/types/verb';
-import drop from 'lodash/drop';
 import shuffle from 'lodash/shuffle';
 import { makeAutoObservable } from 'mobx';
 import type { RootStore } from './RootStore';
@@ -70,7 +69,7 @@ export default class TestStore {
   }
 
   dropDictionary() {
-    this.dictionary = drop(this.dictionary);
+    this.dictionary = this.dictionary.slice(1);
   }
 
   showError(errorMessage: string) {
@@ -131,5 +130,6 @@ export default class TestStore {
     );
     this.dictionary = enabledVerbs;
     this.initialLength = enabledVerbs.length;
+    this.completedCount = 0;
   }
 }
