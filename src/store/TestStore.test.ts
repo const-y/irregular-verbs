@@ -75,7 +75,7 @@ describe('TestStore', () => {
   describe('Конструктор и начальное состояние', () => {
     it('должен корректно инициализировать store', () => {
       expect(testStore.dictionary).toEqual([]);
-      expect(testStore.initialLength).toBe(1);
+      expect(testStore.initialLength).toBe(0);
       expect(testStore.isSuccess).toBe(false);
       expect(testStore.errorMessage).toBe('');
       expect(testStore.isTestingMode).toBe(false);
@@ -86,7 +86,6 @@ describe('TestStore', () => {
   describe('Геттеры', () => {
     it('activeVerb должен возвращать первый глагол из словаря или null', () => {
       testStore.dictionary = verbs;
-      console.log(testStore.dictionary);
       expect(testStore.activeVerb).toEqual(verbs[0]);
 
       testStore.dictionary = [];
@@ -96,11 +95,8 @@ describe('TestStore', () => {
     it('completionPercent должен корректно считать процент выполнения', () => {
       testStore.initialLength = 10;
       testStore.dictionary = verbs; // 3 глагола
+      testStore.completedCount = 7;
 
-      console.log({
-        initial: testStore.initialLength,
-        dictionary: testStore.dictionary.length,
-      });
       expect(testStore.completionPercent).toBe(70);
 
       testStore.initialLength = 0;
@@ -191,7 +187,7 @@ describe('TestStore', () => {
 
       testStore.setIsTestingMode(false);
       expect(testStore.isTestingMode).toBe(false);
-      expect(testStore.initialLength).toBe(1);
+      expect(testStore.initialLength).toBe(0);
       expect(testStore.isSuccess).toBe(false);
       expect(testStore.errorMessage).toBe('');
     });
@@ -245,6 +241,7 @@ describe('TestStore', () => {
 
     it('completionPercent должен быть 100% при завершении', () => {
       testStore.initialLength = 3;
+      testStore.completedCount = 3;
       testStore.dictionary = [];
       expect(testStore.completionPercent).toBe(100);
     });
