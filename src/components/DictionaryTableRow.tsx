@@ -1,10 +1,10 @@
 import { useStore } from '@/context/storeContext';
 import type { Progress } from '@/storage/progress.storage';
 import type { Verb } from '@/types/verb';
+import { VerbRowViewModel } from '@/viewmodels/VerbRowViewModel';
 import cn from 'classnames';
-import { computed } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 import Checkbox from './ui/Checkbox';
 import VerbProgress from './VerbProgress';
 
@@ -19,16 +19,20 @@ const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
 }) => {
   const { id, base, past, pastParticiple, translation } = verb;
   const { settingsStore } = useStore();
-  const isDisabled = computed(() => settingsStore.isVerbDisabled(id)).get();
 
-  const handleCheck = () => {
-    settingsStore.toggleVerb(id);
-  };
+  const viewModel = useMemo(
+    () => new VerbRowViewModel(id, settingsStore),
+    [id, settingsStore],
+  );
 
   return (
-    <tr className={cn({ 'opacity-50': isDisabled })}>
+    <tr className={cn({ 'opacity-50': viewModel.isDisabled })}>
       <td>
-        <Checkbox name={id} checked={!isDisabled} onChange={handleCheck} />
+        <Checkbox
+          name={id}
+          checked={viewModel.isChecked}
+          onChange={viewModel.toggle}
+        />
       </td>
       <td>{base}</td>
       <td>{past}</td>
