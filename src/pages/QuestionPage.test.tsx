@@ -1,11 +1,10 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
-import QuestionsPage from './QuestionsPage';
-import { render } from '@/test/test-uitls';
-import TestStore from '@/store/TestStore';
 import { verbsStub } from '@/api/__stubs__/dictionary.stub';
 import * as dictionaryApi from '@/api/dictionary.api';
 import { RootStore } from '@/store/RootStore';
+import { render } from '@/test/test-uitls';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import QuestionsPage from './QuestionsPage';
 
 vi.mock('@/api/dictionary.api');
 

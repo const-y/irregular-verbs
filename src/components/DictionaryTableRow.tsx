@@ -9,13 +9,11 @@ import Checkbox from './ui/Checkbox';
 import VerbProgress from './VerbProgress';
 
 interface DictionaryTableRowProps {
-  index: number;
   verb: Verb;
   progress: Progress;
 }
 
 const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
-  index,
   verb,
   progress,
 }) => {
@@ -32,7 +30,6 @@ const DictionaryTableRow: FC<DictionaryTableRowProps> = ({
       <td>
         <Checkbox name={id} checked={!isDisabled} onChange={handleCheck} />
       </td>
-      <td>{index + 1}</td>
       <td>{base}</td>
       <td>{past}</td>
       <td>{pastParticiple}</td>

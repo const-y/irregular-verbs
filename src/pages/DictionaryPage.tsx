@@ -31,7 +31,6 @@ const DictionaryPage: React.FC = () => {
             <th>
               <ToggleAllVerbs dictionary={data} />
             </th>
-            <th>#</th>
             <th>Infinitive</th>
             <th>Past Simple</th>
             <th>Past Participle</th>
@@ -40,10 +39,9 @@ const DictionaryPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((verb, index) => (
+          {data?.map((verb) => (
             <DictionaryTableRow
               key={verb.id}
-              index={index}
               verb={verb}
               progress={progressMap[verb.id]}
             />
