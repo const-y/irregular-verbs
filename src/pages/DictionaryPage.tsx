@@ -1,6 +1,7 @@
 import { getDictionary } from '@/api/dictionary.api';
 import DictionaryTableRow from '@/components/DictionaryTableRow';
 import Preloader from '@/components/Preloader';
+import SelectedVerbsBar from '@/components/SelectedVerbsBar';
 import ToggleAllVerbs from '@/components/ToggleAllVerbs';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { loadProgress } from '@/storage/progress.storage';
@@ -25,6 +26,7 @@ const DictionaryPage: React.FC = () => {
 
   return (
     <div className="width-100 overflow-auto">
+      <SelectedVerbsBar />
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -48,6 +50,7 @@ const DictionaryPage: React.FC = () => {
           ))}
         </tbody>
       </Table>
+      <SelectedVerbsBar />
     </div>
   );
 };
