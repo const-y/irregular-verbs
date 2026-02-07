@@ -11,11 +11,12 @@ import { getRandomTaskMode } from '@/utils/taskMode.utils';
 export default class TestStore {
   rootStore: RootStore;
   dictionary: Verb[] = [];
-  initialLength = 1;
+  initialLength = 0;
   isSuccess = false;
   errorMessage = '';
   isTestingMode = false;
   taskMode: TaskMode = 'translateToForms';
+  completedCount = 0;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -29,9 +30,7 @@ export default class TestStore {
   get completionPercent() {
     if (this.initialLength === 0) return 0;
 
-    const percent =
-      ((this.initialLength - this.dictionary.length) / this.initialLength) *
-      100;
+    const percent = (this.completedCount / this.initialLength) * 100;
 
     return Math.round(Math.min(Math.max(percent, 0), 100));
   }
@@ -59,9 +58,10 @@ export default class TestStore {
     if (isTestingMode) {
       this.rootStore.uiStore.setActiveTab(TABS.TEST);
     } else {
-      this.initialLength = 1;
+      this.initialLength = 0;
       this.isSuccess = false;
       this.errorMessage = '';
+      this.completedCount = 0;
     }
   }
 
@@ -102,6 +102,7 @@ export default class TestStore {
       this.showSuccess();
       progress.success++;
       progress.strength = Math.min(1, progress.strength + 0.15);
+      this.completedCount++;
     } else {
       this.showError(`${base} ${past} ${pastParticiple} - ${translation}`);
       progress.fail++;
