@@ -1,6 +1,7 @@
 import { getDictionary } from '@/api/dictionary.api';
 import DictionaryTableRow from '@/components/DictionaryTableRow';
 import Preloader from '@/components/Preloader';
+import SelectedVerbsBar from '@/components/SelectedVerbsBar';
 import ToggleAllVerbs from '@/components/ToggleAllVerbs';
 import { QUERY_KEYS } from '@/constants/queryKeys';
 import { loadProgress } from '@/storage/progress.storage';
@@ -25,13 +26,13 @@ const DictionaryPage: React.FC = () => {
 
   return (
     <div className="width-100 overflow-auto">
+      <SelectedVerbsBar />
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>
               <ToggleAllVerbs dictionary={data} />
             </th>
-            <th>#</th>
             <th>Infinitive</th>
             <th>Past Simple</th>
             <th>Past Participle</th>
@@ -40,16 +41,16 @@ const DictionaryPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((verb, index) => (
+          {data?.map((verb) => (
             <DictionaryTableRow
               key={verb.id}
-              index={index}
               verb={verb}
               progress={progressMap[verb.id]}
             />
           ))}
         </tbody>
       </Table>
+      <SelectedVerbsBar />
     </div>
   );
 };
