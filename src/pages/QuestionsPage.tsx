@@ -76,9 +76,10 @@ const QuestionsPage: FC = () => {
           Выбрано слов {selectedVerbsCount}
           <OverlayTrigger
             trigger="click"
-            placement="right"
+            placement="auto"
             overlay={popover}
             rootClose
+            flip
           >
             <Button
               variant="link"

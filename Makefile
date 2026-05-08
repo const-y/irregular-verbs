@@ -23,3 +23,8 @@ dev:
 preview:
 	yarn build
 	yarn preview
+
+deploy:
+	rm -rf dist
+	yarn build
+	rsync -avz --delete dist/ root@178.208.86.68:/var/www/verbs/

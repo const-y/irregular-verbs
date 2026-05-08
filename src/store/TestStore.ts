@@ -49,7 +49,7 @@ export default class TestStore {
     const { base, past, pastParticiple } = this.activeVerb;
     const answerSampler = base + ' ' + past + ' ' + pastParticiple;
 
-    return answer.toLowerCase() === answerSampler;
+    return answer.trim().toLowerCase() === answerSampler;
   }
 
   setIsTestingMode(isTestingMode: boolean) {
